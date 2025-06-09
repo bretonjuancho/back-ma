@@ -32,4 +32,10 @@ public class Titular {
     public Titular() {
 
     }
+
+    public Titular(int id, String nombre, String apellido) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+    }
 }

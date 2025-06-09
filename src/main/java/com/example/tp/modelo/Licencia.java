@@ -31,10 +31,41 @@ public class Licencia {
 
     }
 
-    public Licencia(Character tipoLicencia, String observaciones) {
+    public Licencia(Character tipoLicencia, String observaciones, Titular titular) {
         this.tipoLicencia = tipoLicencia;
+        this.observaciones = observaciones;
+        this.titular = titular;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Character getTipoLicencia() {
+        return tipoLicencia;
+    }
+
+    public void setTipoLicencia(Character tipoLicencia) {
+        this.tipoLicencia = tipoLicencia;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
 
+    public Titular getTitular() {
+        return titular;
+    }
 
+    public void setTitular(Titular titular) {
+        this.titular = titular;
+    }
 }

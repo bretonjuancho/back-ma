@@ -21,7 +21,7 @@ public class TitularController {
 
     @PostMapping("titular/crear")
     @ResponseBody
-    public void crearVendedor (@RequestBody Titular titular) {
+    public void crearTitular (@RequestBody Titular titular) {
         titularService.crearTitular(titular);
     }
 
