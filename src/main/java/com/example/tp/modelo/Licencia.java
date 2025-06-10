@@ -1,6 +1,7 @@
 package com.example.tp.modelo;
 
 
+import com.example.tp.DTO.LicenciaDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,10 @@ public class Licencia {
     @Setter
     private LocalDate fechaEmision;
 
+    @Getter
+    @Setter
+    private LocalDate fechaExpiracion;
+
     @Column(name = "tipoLicencia")
     @Getter
     @Setter
@@ -39,6 +44,8 @@ public class Licencia {
     @JoinColumn(name = "titular_id", nullable = false)
     private Titular titular;
 
+    @Setter
+    @Getter
     @OneToMany(mappedBy = "licencia", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GestionLicencia> gestiones;
 
@@ -51,5 +58,13 @@ public class Licencia {
         this.observaciones = observaciones;
         this.titular = titular;
     }
+
+    public Licencia(LicenciaDTO licencia,Titular titular) {
+        this.fechaEmision = licencia.getFechaEmision();
+        this.tipoLicencia=licencia.getTipo();
+        this.observaciones=licencia.getObservaciones();
+        this.titular=titular;
+    }
+
 
 }

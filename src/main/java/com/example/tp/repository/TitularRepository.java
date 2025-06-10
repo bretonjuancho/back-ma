@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TitularRepository extends JpaRepository<Titular, Integer>{
-    Titular findByDni(String documento);
+    Titular findByDocumento(String documento);
 }
