@@ -4,6 +4,7 @@ import com.example.tp.DTO.LicenciaDTO;
 import com.example.tp.modelo.Licencia;
 import com.example.tp.modelo.Titular;
 import com.example.tp.service.LicenciaService;
+import com.example.tp.service.LicenciaService_impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class LicenciaController {
     @Autowired
-    private LicenciaService licenciaService;
+    private LicenciaService_impl licenciaService;
 
     @GetMapping("/licencia/nueva")
     public String nuevaLicencia() {
@@ -26,7 +27,7 @@ public class LicenciaController {
     public String guardarLicencia(LicenciaDTO licencia) {
         if(!licenciaService.edadMinima(licencia)) return "redirect:/licencia/nueva";//aca habria q tirar un error y pedir q arranque de vuelta
         if(!licenciaService.profesional(licencia)) return "redirect:/licencia/nueva";//aca habria q tirar un error
-        licenciaService.guardar(licencia);
+       // licenciaService.guardar(licencia);
         return "redirect:/licencia";
     }
 }

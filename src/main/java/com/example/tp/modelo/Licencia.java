@@ -4,6 +4,9 @@ package com.example.tp.modelo;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @Entity
@@ -13,59 +16,40 @@ public class Licencia {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "licencia_seq")
     @SequenceGenerator(name = "licencia_seq", sequenceName = "licencia_seq", allocationSize = 1)
-
-    @Column(name = "idLicencia")
     private int id;
 
+    @Column(name = "fechaEmision")
+    @Getter
+    @Setter
+    private LocalDate fechaEmision;
+
     @Column(name = "tipoLicencia")
-    private Character tipoLicencia;
+    @Getter
+    @Setter
+    private String tipoLicencia;
 
     @Column(name = "observaciones")
+    @Getter
+    @Setter
     private String observaciones;
 
+    @Setter
+    @Getter
     @ManyToOne
     @JoinColumn(name = "titular_id", nullable = false)
     private Titular titular;
+
+    @OneToMany(mappedBy = "licencia", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GestionLicencia> gestiones;
 
     public Licencia() {
 
     }
 
-    public Licencia(Character tipoLicencia, String observaciones, Titular titular) {
+    public Licencia(String tipoLicencia, String observaciones, Titular titular) {
         this.tipoLicencia = tipoLicencia;
         this.observaciones = observaciones;
         this.titular = titular;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Character getTipoLicencia() {
-        return tipoLicencia;
-    }
-
-    public void setTipoLicencia(Character tipoLicencia) {
-        this.tipoLicencia = tipoLicencia;
-    }
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public Titular getTitular() {
-        return titular;
-    }
-
-    public void setTitular(Titular titular) {
-        this.titular = titular;
-    }
 }
