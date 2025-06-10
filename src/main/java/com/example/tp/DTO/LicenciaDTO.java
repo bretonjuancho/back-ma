@@ -1,8 +1,22 @@
 package com.example.tp.DTO;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+
 public class LicenciaDTO {
+    @Setter
+    @Getter
     private String tipo;
+    @Setter
+    @Getter
     private String observaciones;
+    @Getter
+    @Setter
+    private LocalDate fechaEmision;
+    @Setter
+    @Getter
     private TitularDTO titular;
 
     public LicenciaDTO() {
@@ -12,30 +26,8 @@ public class LicenciaDTO {
         this.titular = titular;
         this.observaciones = observaciones;
         this.tipo = tipo;
+        this.fechaEmision = LocalDate.now();
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public TitularDTO getTitular() {
-        return titular;
-    }
-
-    public void setTitular(TitularDTO titular) {
-        this.titular = titular;
-    }
 }
 
