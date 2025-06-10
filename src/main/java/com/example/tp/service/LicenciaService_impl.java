@@ -1,6 +1,7 @@
 package com.example.tp.service;
 
 import com.example.tp.DTO.LicenciaDTO;
+import com.example.tp.modelo.GestionLicencia;
 import com.example.tp.modelo.Licencia;
 import com.example.tp.modelo.Titular;
 import com.example.tp.repository.LicenciaRepository;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 @Service
-public class LicenciaService_impl {
+public class LicenciaService_impl implements LicenciaService{
     private LicenciaRepository bdd_licencia;
     private TitularRepository bdd_titular;
 
@@ -46,21 +47,68 @@ public class LicenciaService_impl {
         return false;
     }
 
-    private Titular buscarTitularByDocumento(String documento){
+    public Titular buscarTitularByDocumento(String documento){
         Titular titular = null;
-        titular=bdd_titular.findByDni(documento);
+        titular=bdd_titular.findByDocumento(documento);
         return titular;
     }
 
-    private List<Licencia> buscarLicenciaByTipoYTitular(String tipo, Titular titular) {
+    public List<Licencia> buscarLicenciaByTipoYTitular(String tipo, Titular titular) {
         return bdd_licencia.buscarLicenciaByTipoYTitular(tipo,titular.getId());
     }
 
-    private Licencia licenciaMasVieja(List<Licencia> licencias){
+    public Licencia licenciaMasVieja(List<Licencia> licencias){
         Licencia licencia = null;
         for(Licencia l: licencias){
             if(licencia==null || licencia.getFechaEmision().isAfter(l.getFechaEmision())){licencia=l;}
         }
         return licencia;
+    }
+
+    public void guardarLicencia(LicenciaDTO licencia){
+        Titular duenio=bdd_titular.findByDocumento(licencia.getTitular().getDocumento());
+        Licencia save= new Licencia(licencia,duenio);
+        LocalDate fechaExpiracion=calcularValidez(save,duenio);
+        save.setFechaExpiracion(fechaExpiracion);
+       // GestionLicencia
+        bdd_licencia.save(save);
+    }
+
+    public int calcularCosto(Licencia save, Titular duenio){
+        //if()
+    }
+
+
+    public LocalDate calcularValidez(Licencia save,Titular duenio){
+        LocalDate nacimiento=duenio.getFechaNacimiento();
+        int edad= Period.between(nacimiento,LocalDate.now()).getYears();
+        if(edad<21){
+            LocalDate ret;
+            if(bdd_licencia.buscarLicenciaByTipoYTitular(save.getTipoLicencia(),duenio.getId()).size()==1) ret=nacimiento.plusYears(1);
+            else  ret=nacimiento.plusYears(3);
+            return ret;
+        }
+        else{
+            if(edad<=46){
+                LocalDate ret=nacimiento.plusYears(5);
+                return ret;
+            }
+            else{
+                if(edad<=60){
+                    LocalDate ret=nacimiento.plusYears(4);
+                    return ret;
+                }
+                else{
+                    if(edad<=70){
+                        LocalDate ret=nacimiento.plusYears(3);
+                        return ret;
+                    }
+                    else{
+                        LocalDate ret=nacimiento.plusYears(1);
+                        return ret;
+                    }
+                }
+            }
+        }
     }
 }

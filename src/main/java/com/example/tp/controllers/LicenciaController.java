@@ -17,17 +17,17 @@ public class LicenciaController {
     @Autowired
     private LicenciaService_impl licenciaService;
 
-    @GetMapping("/licencia/nueva")
+   /* @GetMapping("/licencia/nueva")
     public String nuevaLicencia() {
         return "licencia/nueva";//esta seria la parte de mostrar el formulario de la licencia
         //habria q profundizar en esto mas adelante
-    }
+    }*/
 
     @PostMapping ("/licencia/guardar")
     public String guardarLicencia(LicenciaDTO licencia) {
         if(!licenciaService.edadMinima(licencia)) return "redirect:/licencia/nueva";//aca habria q tirar un error y pedir q arranque de vuelta
         if(!licenciaService.profesional(licencia)) return "redirect:/licencia/nueva";//aca habria q tirar un error
-       // licenciaService.guardar(licencia);
+        licenciaService.guardarLicencia(licencia);
         return "redirect:/licencia";
     }
 }

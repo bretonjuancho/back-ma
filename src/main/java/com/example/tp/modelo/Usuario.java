@@ -1,6 +1,7 @@
 package com.example.tp.modelo;
 
 
+import com.example.tp.DTO.UsuarioDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -51,6 +52,14 @@ public class Usuario {
         this.apellido = apellido;
         this.email = email;
         this.password = password;
+    }
+
+    public Usuario(UsuarioDTO usuario) {
+        this.dni = usuario.getDni();
+        this.nombre = usuario.getNombre();
+        this.apellido = usuario.getApellido();
+        this.email = usuario.getEmail();
+        this.password = usuario.getPassword();
     }
 
 }
