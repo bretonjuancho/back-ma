@@ -23,7 +23,7 @@ public class AdministradorController {
 
     @PostMapping("/administrador/guardarUsuario")
     public String guardarUsuario(UsuarioDTO usuario) {
-        administradorService.guardarUsuario(usuario);
+        administradorService.guardarUsuario(usuario); //esta mal, no debe ir en administrdor service, la creacion del usuario
         return "redirect:/licencia";
     }
 }

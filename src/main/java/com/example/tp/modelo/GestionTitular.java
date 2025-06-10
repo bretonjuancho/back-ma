@@ -39,9 +39,10 @@ public class GestionTitular {
     private LocalDateTime fechaTiempo;
 
     public GestionTitular() {}
-    public GestionTitular(Titular titular, Usuario usuario) {
+    public GestionTitular(Titular titular, Usuario usuario,String motivo) {
         this.titular = titular;
         this.usuario = usuario;
+        this.motivo = motivo;
         this.fechaTiempo = LocalDateTime.now();
     }
 }
