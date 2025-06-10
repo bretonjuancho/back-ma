@@ -1,6 +1,7 @@
 package com.example.tp.controllers;
 
 import com.example.tp.modelo.Titular;
+import com.example.tp.service.TitularService_impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +13,9 @@ import java.util.List;
 
 public class TitularController {
     @Autowired
-    private final TitularService titularService;
+    private TitularService_impl titularService;
 
-    public TitularController(TitularService titularService) {
-        this.titularService = titularService;
-    }
-
+/*
 
     @PostMapping("titular/crear")
     @ResponseBody
@@ -29,9 +27,9 @@ public class TitularController {
     @ResponseBody
     public List<Titular> listarTitulares(@RequestParam(value = "nombre", required = false) String nombre) {
         if (nombre != null && !nombre.isEmpty()) {
-            return titularService.buscarTitularesPorNombre(nombre);
+          //  return titularService.buscarTitularesPorNombre(nombre);
         }
         return titularService.ListarTitulares();
-    }
+    }*/
 
 }
