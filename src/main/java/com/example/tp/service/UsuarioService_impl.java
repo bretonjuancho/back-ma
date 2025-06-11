@@ -6,11 +6,14 @@ import com.example.tp.excepciones.usuario.*;
 import com.example.tp.modelo.Usuario;
 import com.example.tp.repository.UsuarioRepository;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class UsuarioService_impl implements UsuarioService{
 
+    public UsuarioService_impl(){}
 
     private boolean validarTexto(String texto){
         return texto.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+");
@@ -26,16 +29,16 @@ public class UsuarioService_impl implements UsuarioService{
         return true;
     }
     @Override
-    public boolean datosUsuarioValido(UsuarioDTO usuarioDTO) throws UsuarioDatosInvalidosException {
-        if (validarTexto(usuarioDTO.getNombre())) return true;
-        if(validarTexto(usuarioDTO.getApellido())) return true;
-        if(validarEmail(usuarioDTO.getEmail())) return true;
-        if(validarPassword(usuarioDTO.getPassword())) return true;
-        throw new UsuarioDatosInvalidosException("Los datos ingresados del usuario son invalidos");
+    public boolean datosUsuarioValido(UsuarioDTO usuarioDTO) throws UsuarioDatosInvalidosException{
+        if (!validarTexto(usuarioDTO.getNombre())) throw new UsuarioDatosInvalidosException("Nombre del usuario invalido: "+usuarioDTO.getNombre());
+        if(!validarTexto(usuarioDTO.getApellido())) throw new UsuarioDatosInvalidosException("Apellido del usuario invalido: "+ usuarioDTO.getApellido());
+        if(!validarEmail(usuarioDTO.getEmail())) throw new UsuarioDatosInvalidosException("Email del usuario incorrecto: "+ usuarioDTO.getEmail());
+        if(!validarPassword(usuarioDTO.getPassword())) throw new UsuarioDatosInvalidosException("Password invalida, no cumple con las caracteristicas.");
+        return true;
     }
 
-
-    private UsuarioRepository usuarioRepository;
+    @Autowired
+    UsuarioRepository usuarioRepository;
     public boolean usuarioExiste(UsuarioDTO usuarioDTO) throws ErrorAlAccederABDDException{
         try{
             Usuario usuario = usuarioRepository.findByDni(usuarioDTO.getDni());
@@ -60,5 +63,7 @@ public class UsuarioService_impl implements UsuarioService{
         Usuario usuario = new Usuario(dni,nombre, apellido, email, password);
         usuarioRepository.save(usuario);
     }
+
+
 
 }
