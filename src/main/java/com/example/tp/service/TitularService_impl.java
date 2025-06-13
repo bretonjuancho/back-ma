@@ -46,12 +46,26 @@ public class TitularService_impl {
                 );
     }
 
+    private boolean validarDocumento(String documento, String tipoDocumento){
+        if(tipoDocumento.equalsIgnoreCase("DNI")){
+            return documento.matches("[0-9]+") && documento.length() <=8;
+        }else{
+            if(tipoDocumento.equalsIgnoreCase("CUIL")){
+                return documento.matches("\\d\\d-[0-9]+-\\d");
+            }
+            else if(tipoDocumento.equalsIgnoreCase("CUIT")){
+                return documento.matches("\\d\\d-[0-9]+-\\d");
+            }
+            else return false;
+        }
+    }
     public boolean validarDatosTitular(TitularDTO titularDTO)throws TitularDatosInvalidos {
         if (!validarTexto(titularDTO.getNombre())) throw new TitularDatosInvalidos("El nombre del titular no es valido: " + titularDTO.getNombre());
         if (!validarTexto((titularDTO.getApellido()))) throw new TitularDatosInvalidos("El apellido no es valido: " + titularDTO.getApellido());
         if (!validarTipoDocumento(titularDTO.getDocumento())) throw new TitularDatosInvalidos(("No es un tipo de documento valido."));
         if (!validarGrupoSanguineo(titularDTO.getGrupoSanquineo())) throw new TitularDatosInvalidos("El grupo sanguineo no es valido.");
-        if(!validarFactorRH(titularDTO.getFactorRH())) throw new TitularDatosInvalidos("El factorRH no es valido.");
+        if (!validarFactorRH(titularDTO.getFactorRH())) throw new TitularDatosInvalidos("El factorRH no es valido.");
+        if (!validarDocumento(titularDTO.getDocumento(),titularDTO.getTipoDocumento())) throw new TitularDatosInvalidos("El documento no es valido.");
         return true;
 
     }

@@ -19,15 +19,14 @@ public class TitularController {
     private TitularService_impl titularService;
 
     @PostMapping("titular/crear")
-    public ResponseEntity<TitularDTO> crearTitular (@RequestBody TitularDTO titularDTO) {
+    public ResponseEntity<String> crearTitular (@RequestBody TitularDTO titularDTO) {
        try{
-           if(titularService.validarDatosTitular(titularDTO)){
-               Titular titular = titularService.crearTitular(titularDTO);
-               return new ResponseEntity(HttpStatus.CREATED);
-           }
+           titularService.validarDatosTitular(titularDTO);
+           Titular titular = titularService.crearTitular(titularDTO);
+           return new ResponseEntity<>(HttpStatus.CREATED);
        }catch(Exception e){
            System.out.println(e.getMessage());
-           return new ResponseEntity(HttpStatus.BAD_REQUEST);
+           return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
        }
 
     }
