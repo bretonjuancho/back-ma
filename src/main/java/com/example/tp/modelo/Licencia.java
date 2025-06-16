@@ -28,7 +28,7 @@ public class Licencia {
     @Setter
     private LocalDate fechaExpiracion;
 
-    @Column(name = "tipoLicencia")
+    @Column(name = "tipo_licencia")
     @Getter
     @Setter
     private String tipoLicencia;
