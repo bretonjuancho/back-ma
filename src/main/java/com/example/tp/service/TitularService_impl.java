@@ -2,6 +2,7 @@ package com.example.tp.service;
 
 import com.example.tp.DTO.TitularDTO;
 import com.example.tp.excepciones.titular.TitularDatosInvalidos;
+import com.example.tp.excepciones.titular.TitularNoEncontradoException;
 import com.example.tp.modelo.Titular;
 import com.example.tp.repository.TitularRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +63,8 @@ public class TitularService_impl {
     public boolean validarDatosTitular(TitularDTO titularDTO)throws TitularDatosInvalidos {
         if (!validarTexto(titularDTO.getNombre())) throw new TitularDatosInvalidos("El nombre del titular no es valido: " + titularDTO.getNombre());
         if (!validarTexto((titularDTO.getApellido()))) throw new TitularDatosInvalidos("El apellido no es valido: " + titularDTO.getApellido());
-        if (!validarTipoDocumento(titularDTO.getDocumento())) throw new TitularDatosInvalidos(("No es un tipo de documento valido."));
-        if (!validarGrupoSanguineo(titularDTO.getGrupoSanquineo())) throw new TitularDatosInvalidos("El grupo sanguineo no es valido.");
+        if (!validarTipoDocumento(titularDTO.getTipoDocumento())) throw new TitularDatosInvalidos(("No es un tipo de documento valido."));
+        if (!validarGrupoSanguineo(titularDTO.getGrupoSanguineo())) throw new TitularDatosInvalidos("El grupo sanguineo no es valido.");
         if (!validarFactorRH(titularDTO.getFactorRH())) throw new TitularDatosInvalidos("El factorRH no es valido.");
         if (!validarDocumento(titularDTO.getDocumento(),titularDTO.getTipoDocumento())) throw new TitularDatosInvalidos("El documento no es valido.");
         return true;
@@ -77,7 +78,7 @@ public class TitularService_impl {
         String tipoDocumento = titularDTO.getTipoDocumento();
         LocalDate fechaNacimiento = titularDTO.getFechaNacimiento();
         String direccion = titularDTO.getDireccion();
-        String grupoSanguineo = titularDTO.getGrupoSanquineo();
+        String grupoSanguineo = titularDTO.getGrupoSanguineo();
         String factorRH = titularDTO.getFactorRH();
         boolean donante = titularDTO.isDonante();
 
@@ -85,6 +86,16 @@ public class TitularService_impl {
         titularRepository.save(titular);
         return titular;
 
+
+    }
+
+    public List<Titular> buscarTitulares (String documento, String nombre, String apellido)throws TitularNoEncontradoException {
+
+        List<Titular> titulars = titularRepository.findByDocuementoNombreApellido(documento,nombre,apellido);
+        if(!titulars.isEmpty()){
+            return titulars;
+        }
+        throw  new TitularNoEncontradoException("No se encontro un titular con los filtros aplicados");
 
     }
 

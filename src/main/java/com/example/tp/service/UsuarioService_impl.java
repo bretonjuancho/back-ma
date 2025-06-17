@@ -8,10 +8,16 @@ import com.example.tp.repository.UsuarioRepository;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioService_impl implements UsuarioService{
+
+    @Autowired
+    UsuarioRepository usuarioRepository;
 
     public UsuarioService_impl(){}
 
@@ -37,8 +43,7 @@ public class UsuarioService_impl implements UsuarioService{
         return true;
     }
 
-    @Autowired
-    UsuarioRepository usuarioRepository;
+
     public boolean usuarioExiste(UsuarioDTO usuarioDTO) throws ErrorAlAccederABDDException{
         try{
             Usuario usuario = usuarioRepository.findByDni(usuarioDTO.getDni());
@@ -47,6 +52,14 @@ public class UsuarioService_impl implements UsuarioService{
             System.err.println(e.getMessage());
             throw new ErrorAlAccederABDDException("Se produjo un error al intentar acceder a la base de datos de Usuarios. Error: "+e.getMessage());
         }
+    }
+
+    public Usuario getLogingUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+         String email = ((User) authentication.getPrincipal()).getUsername();
+         return usuarioRepository.findByEmail(email);
+
+
     }
 
     public Usuario obtenerUsuario(UsuarioDTO usuarioDTO) {

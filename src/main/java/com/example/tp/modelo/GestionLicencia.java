@@ -41,7 +41,7 @@ public class GestionLicencia {
     private LocalDateTime fechaTiempo;
 
     public GestionLicencia() {}
-    public GestionLicencia(Licencia licencia, Usuario usuario) {
+    public GestionLicencia(Licencia licencia, Usuario usuario, String motivo) {
         this.licencia = licencia;
         this.usuario = usuario;
         this.fechaTiempo = LocalDateTime.now();

@@ -1,6 +1,7 @@
 package com.example.tp.modelo;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -51,6 +52,7 @@ public class Titular {
     private boolean donante;
 
     @OneToMany(mappedBy = "titular", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Licencia> licencias;
 
     @OneToMany(mappedBy = "titular", cascade = CascadeType.ALL, orphanRemoval = true)

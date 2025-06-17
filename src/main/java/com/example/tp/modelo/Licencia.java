@@ -2,10 +2,12 @@ package com.example.tp.modelo;
 
 
 import com.example.tp.DTO.LicenciaDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -43,6 +45,7 @@ public class Licencia {
     @Getter
     @ManyToOne
     @JoinColumn(name = "titular_id", nullable = false)
+    @JsonBackReference
     private Titular titular;
 
     @Setter
@@ -65,6 +68,11 @@ public class Licencia {
         this.claseLicencia=licencia.getClase();
         this.observaciones=licencia.getObservaciones();
         this.titular=titular;
+        gestiones=new ArrayList<>();
+    }
+
+    public void addGestionLicencia(GestionLicencia gestionLicencia) {
+        this.gestiones.add(gestionLicencia);
     }
 
 

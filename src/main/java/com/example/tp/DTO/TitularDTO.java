@@ -1,5 +1,7 @@
 package com.example.tp.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -8,22 +10,23 @@ public class TitularDTO {
     private String apellido;
     private String documento;
     private String tipoDocumento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate fechaNacimiento;
     private String direccion;
-    private String grupoSanquineo;
+    private String grupoSanguineo;
     private String factorRH;
     private boolean donante;
 
     public TitularDTO(String nombre, String apellido, String documento,
                       String tipoDocumento, LocalDate fechaNacimiento, String direccion,
-                      String grupoSanquineo, String factorRH, boolean donante) {
+                      String grupoSanguineo, String factorRH, boolean donante) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.documento = documento;
         this.tipoDocumento = tipoDocumento;
         this.fechaNacimiento = fechaNacimiento;
         this.direccion = direccion;
-        this.grupoSanquineo = grupoSanquineo;
+        this.grupoSanguineo = grupoSanguineo;
         this.factorRH = factorRH;
         this.donante = donante;
     }
@@ -76,12 +79,12 @@ public class TitularDTO {
         this.direccion = direccion;
     }
 
-    public String getGrupoSanquineo() {
-        return grupoSanquineo;
+    public String getGrupoSanguineo() {
+        return grupoSanguineo;
     }
 
-    public void setGrupoSanquineo(String grupoSanquineo) {
-        this.grupoSanquineo = grupoSanquineo;
+    public void setGrupoSanguineo(String grupoSanguineo) {
+        this.grupoSanguineo = grupoSanguineo;
     }
 
     public String getFactorRH() {

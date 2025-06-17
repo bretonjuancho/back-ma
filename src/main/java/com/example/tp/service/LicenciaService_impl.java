@@ -5,8 +5,11 @@ import com.example.tp.DTO.TitularDTO;
 import com.example.tp.modelo.GestionLicencia;
 import com.example.tp.modelo.Licencia;
 import com.example.tp.modelo.Titular;
+import com.example.tp.modelo.Usuario;
+import com.example.tp.repository.GestionLicenciaRepository;
 import com.example.tp.repository.LicenciaRepository;
 import com.example.tp.repository.TitularRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +18,14 @@ import java.time.Period;
 import java.util.List;
 @Service
 public class LicenciaService_impl implements LicenciaService{
+    @Autowired
     private LicenciaRepository bdd_licencia;
+    @Autowired
     private TitularRepository bdd_titular;
+    @Autowired
+    private UsuarioService_impl usuarioService;
+    @Autowired
+    private GestionLicenciaRepository gestionLicenciaRepository;
 
     public LicenciaService_impl() {}
 
@@ -67,13 +76,23 @@ public class LicenciaService_impl implements LicenciaService{
         return licencia;
     }
 
+    private GestionLicencia gestionLicencia(Licencia licencia, Usuario usuario,String motivo){
+        GestionLicencia gestionLicencia = new GestionLicencia(licencia,usuario,motivo);
+        gestionLicenciaRepository.save(gestionLicencia);
+        return gestionLicencia;
+    }
+
     public void guardarLicencia(LicenciaDTO licencia){
         Titular duenio=bdd_titular.findByDocumento(licencia.getTitular().getDocumento());
         Licencia save= new Licencia(licencia,duenio);
         LocalDate fechaExpiracion=calcularValidez(save,duenio);
         save.setFechaExpiracion(fechaExpiracion);
-       // GestionLicencia
         bdd_licencia.save(save);
+        //gestion licencia:
+        Usuario logUser = usuarioService.getLogingUser();
+        save.addGestionLicencia(gestionLicencia(save,logUser,"Creacion"));
+
+
     }
 
     public double calcularCosto(LicenciaDTO licenciaDTO){

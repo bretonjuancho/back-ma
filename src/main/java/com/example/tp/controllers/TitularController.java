@@ -19,15 +19,29 @@ public class TitularController {
     private TitularService_impl titularService;
 
     @PostMapping("/titular/crear")
-    public ResponseEntity<String> crearTitular (@RequestBody TitularDTO titularDTO) {
+    public ResponseEntity<?> crearTitular (@RequestBody TitularDTO titularDTO) {
        try{
            titularService.validarDatosTitular(titularDTO);
            Titular titular = titularService.crearTitular(titularDTO);
-           return new ResponseEntity<>(HttpStatus.CREATED);
+           return ResponseEntity.status(HttpStatus.CREATED).body(titular);
        }catch(Exception e){
            System.out.println(e.getMessage());
-           return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
        }
+
+    }
+
+    @GetMapping("/titular")
+    public ResponseEntity<?> buscarTitular (@RequestParam(required = false) String documento,
+                                            @RequestParam(required = false) String nombre,
+                                            @RequestParam(required = false) String apellido){
+        try{
+            List<Titular> titulares = titularService.buscarTitulares(documento,nombre,apellido);
+            return ResponseEntity.status(HttpStatus.OK).body(titulares);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
 
     }
 
