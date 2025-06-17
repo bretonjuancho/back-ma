@@ -43,14 +43,15 @@ public class Licencia {
 
     @Setter
     @Getter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "titular_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "titular-licencias")
     private Titular titular;
 
     @Setter
     @Getter
-    @OneToMany(mappedBy = "licencia", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "licencia", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<GestionLicencia> gestiones;
 
     public Licencia() {

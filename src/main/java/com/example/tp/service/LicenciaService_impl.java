@@ -29,6 +29,13 @@ public class LicenciaService_impl implements LicenciaService{
 
     public LicenciaService_impl() {}
 
+    public boolean repetida(LicenciaDTO licencia){
+        List<Licencia> lic = bdd_licencia.buscarLicenciaByClaseYTitular(licencia.getClase(), licencia.getTitular());
+        if(lic.size()==0) return false;
+        return true;
+    }
+
+
     public boolean edadMinima(LicenciaDTO licencia){
         LocalDate nacimiento = licencia.getTitular().getFechaNacimiento();
         LocalDate hoy = LocalDate.now();

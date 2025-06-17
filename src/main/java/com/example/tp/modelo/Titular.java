@@ -1,6 +1,7 @@
 package com.example.tp.modelo;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -51,11 +52,12 @@ public class Titular {
     @Column(name="donante")
     private boolean donante;
 
-    @OneToMany(mappedBy = "titular", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "titular", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "titular-licencias")
     private List<Licencia> licencias;
 
-    @OneToMany(mappedBy = "titular", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "titular", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<GestionTitular> gestiones;
 
     public void addLicencia(Licencia lic){
