@@ -4,11 +4,13 @@ package com.example.tp.modelo;
 import com.example.tp.DTO.UsuarioDTO;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Data
+@Builder
 @AllArgsConstructor
 @Entity
 @Table(name = "usuario")
@@ -19,7 +21,7 @@ public class Usuario {
     @SequenceGenerator(name = "usuario_seq", sequenceName = "usuario_seq", allocationSize = 1)
     private int id;
 
-    @Column(name = "dni")
+    @Column(name = "dni", unique = true, nullable = false)
     private String dni;
 
     @Column(name = "nombre")
@@ -43,6 +45,10 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GestionTitular> titularesCreados;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Token> tokens;
+
+
     public Usuario() {
     }
 
@@ -62,4 +68,7 @@ public class Usuario {
         this.password = usuario.getPassword();
     }
 
+    public Object orElseThrow(Object o) {
+        return null;
+    }
 }

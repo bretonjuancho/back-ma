@@ -54,7 +54,7 @@ public class UsuarioService_impl implements UsuarioService{
     }
 
     @Override
-    public void crearUsuario(UsuarioDTO usuarioDTO){
+    public Usuario crearUsuario(UsuarioDTO usuarioDTO){
         String dni =  usuarioDTO.getDni();
         String nombre = usuarioDTO.getNombre();
         String apellido = usuarioDTO.getApellido();
@@ -62,6 +62,7 @@ public class UsuarioService_impl implements UsuarioService{
         String password = usuarioDTO.getPassword();
         Usuario usuario = new Usuario(dni,nombre, apellido, email, password);
         usuarioRepository.save(usuario);
+        return usuario;
     }
 
 

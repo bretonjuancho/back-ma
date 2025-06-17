@@ -18,7 +18,7 @@ public class TitularController {
     @Autowired
     private TitularService_impl titularService;
 
-    @PostMapping("titular/crear")
+    @PostMapping("/titular/crear")
     public ResponseEntity<String> crearTitular (@RequestBody TitularDTO titularDTO) {
        try{
            titularService.validarDatosTitular(titularDTO);

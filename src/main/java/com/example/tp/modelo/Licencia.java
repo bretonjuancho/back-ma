@@ -19,19 +19,20 @@ public class Licencia {
     @SequenceGenerator(name = "licencia_seq", sequenceName = "licencia_seq", allocationSize = 1)
     private int id;
 
-    @Column(name = "fechaEmision")
+    @Column(name = "fecha_emision")
     @Getter
     @Setter
     private LocalDate fechaEmision;
 
+    @Column(name = "fecha_expiracion")
     @Getter
     @Setter
     private LocalDate fechaExpiracion;
 
-    @Column(name = "tipo_licencia")
+    @Column(name = "clase_licencia")
     @Getter
     @Setter
-    private String tipoLicencia;
+    private String claseLicencia;
 
     @Column(name = "observaciones")
     @Getter
@@ -53,15 +54,15 @@ public class Licencia {
 
     }
 
-    public Licencia(String tipoLicencia, String observaciones, Titular titular) {
-        this.tipoLicencia = tipoLicencia;
+    public Licencia(String claseLicencia, String observaciones, Titular titular) {
+        this.claseLicencia = claseLicencia;
         this.observaciones = observaciones;
         this.titular = titular;
     }
 
     public Licencia(LicenciaDTO licencia,Titular titular) {
         this.fechaEmision = licencia.getFechaEmision();
-        this.tipoLicencia=licencia.getTipo();
+        this.claseLicencia=licencia.getClase();
         this.observaciones=licencia.getObservaciones();
         this.titular=titular;
     }

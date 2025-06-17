@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UsuarioService{
 
-    public void crearUsuario(UsuarioDTO usuarioDTO);
+    public Usuario crearUsuario(UsuarioDTO usuarioDTO);
     public boolean usuarioExiste(UsuarioDTO usuarioDTO);
     public boolean datosUsuarioValido(UsuarioDTO usuarioDTO);
     public Usuario obtenerUsuario(UsuarioDTO usuarioDTO);

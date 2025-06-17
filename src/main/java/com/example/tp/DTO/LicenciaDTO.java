@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class LicenciaDTO {
     @Setter
     @Getter
-    private String tipo;
+    private String clase;
     @Setter
     @Getter
     private String observaciones;
@@ -22,10 +22,10 @@ public class LicenciaDTO {
     public LicenciaDTO() {
     }
 
-    public LicenciaDTO(TitularDTO titular, String observaciones, String tipo) {
+    public LicenciaDTO(TitularDTO titular, String observaciones, String clase) {
         this.titular = titular;
         this.observaciones = observaciones;
-        this.tipo = tipo;
+        this.clase = clase;
         this.fechaEmision = LocalDate.now();
     }
 

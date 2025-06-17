@@ -15,18 +15,18 @@ public class UsuarioController {
     @Autowired
     UsuarioService_impl usuarioServiceImpl;
 
-    @PostMapping("")//hay que agregar la url
-    public ResponseEntity<Usuario> crearUsuario(@RequestBody UsuarioDTO usuarioDto){
+    @PostMapping("/usuario/crear")//hay que agregar la url
+    public ResponseEntity<?> crearUsuario(@RequestBody UsuarioDTO usuarioDto){
         try {
             if (!usuarioServiceImpl.usuarioExiste(usuarioDto)) {
                 if (usuarioServiceImpl.datosUsuarioValido(usuarioDto)) {
-                    usuarioServiceImpl.crearUsuario(usuarioDto);
-                    return new ResponseEntity(HttpStatus.CREATED);
+                    Usuario u = usuarioServiceImpl.crearUsuario(usuarioDto);
+                    return ResponseEntity.status(HttpStatus.CREATED).body(u);
                 }
-            } return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            } return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El usuario con el documento " + usuarioDto.getDni() + " ya existe.");
         }catch(Exception e) {
             System.out.println(e.getMessage());
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 }
