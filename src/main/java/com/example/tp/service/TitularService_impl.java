@@ -24,6 +24,7 @@ public class TitularService_impl {
     }
 
     private boolean validarTipoDocumento(String tipoDocumento){
+
         return (
                         tipoDocumento.equalsIgnoreCase("DNI") ||
                         tipoDocumento.equalsIgnoreCase("CUIL") ||
@@ -49,6 +50,8 @@ public class TitularService_impl {
     }
 
     private boolean validarDocumento(String documento, String tipoDocumento){
+        boolean repetido = (titularRepository.findByDocumento(documento)) != null;
+        if (repetido) return false;
         if(tipoDocumento.equalsIgnoreCase("DNI")){
             return documento.matches("[0-9]+") && documento.length() <=8;
         }else{

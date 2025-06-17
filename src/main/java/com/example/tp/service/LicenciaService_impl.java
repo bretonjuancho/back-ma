@@ -30,8 +30,9 @@ public class LicenciaService_impl implements LicenciaService{
     public LicenciaService_impl() {}
 
     public boolean repetida(LicenciaDTO licencia){
-        List<Licencia> lic = bdd_licencia.buscarLicenciaByClaseYTitular(licencia.getClase(), licencia.getTitular());
-        if(lic.size()==0) return false;
+        Titular titular = buscarTitularByDocumento(licencia.getTitular().getDocumento());
+        List<Licencia> lic = bdd_licencia.buscarLicenciaByClaseYTitular(licencia.getClase(), titular.getId());
+        if(lic.isEmpty()) return false;
         return true;
     }
 

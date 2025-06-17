@@ -25,7 +25,7 @@ public class Titular {
     @Column(name = "idTitular")
     private int id;
 
-    @Column(name = "documento")
+    @Column(name = "documento", unique = true)
     private String documento;
 
     @Column(name="tipo_documento")
