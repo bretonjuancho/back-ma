@@ -32,6 +32,7 @@ public class TitularService_impl {
     }
 
     private boolean validarGrupoSanguineo(String tipoSanguineo){
+
         return(
                 tipoSanguineo.equalsIgnoreCase("A")
                 || tipoSanguineo.equalsIgnoreCase("B")
@@ -73,12 +74,14 @@ public class TitularService_impl {
 
     public Titular crearTitular(TitularDTO titularDTO) {
         String nombre = titularDTO.getNombre();
+
         String apellido = titularDTO.getApellido();
         String documento = titularDTO.getDocumento();
         String tipoDocumento = titularDTO.getTipoDocumento();
         LocalDate fechaNacimiento = titularDTO.getFechaNacimiento();
         String direccion = titularDTO.getDireccion();
         String grupoSanguineo = titularDTO.getGrupoSanguineo();
+       
         String factorRH = titularDTO.getFactorRH();
         boolean donante = titularDTO.isDonante();
 
@@ -98,5 +101,4 @@ public class TitularService_impl {
         throw  new TitularNoEncontradoException("No se encontro un titular con los filtros aplicados");
 
     }
-
 }

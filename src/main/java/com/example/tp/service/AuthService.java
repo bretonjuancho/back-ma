@@ -38,7 +38,7 @@ public class AuthService {
         String jwtToken = jwtService.generateToken(usuario);
         String refreshToken = jwtService.generateRefreshToken(usuario);
         saveUserToken(savedUsuario,jwtToken);
-        return new TokenResponse(jwtToken,refreshToken);
+        return new TokenResponse(jwtToken,refreshToken,"administrativo");
     }
 
     private void saveUserToken(Usuario usuario, String jwtToken){
@@ -55,17 +55,17 @@ public class AuthService {
     public TokenResponse login(LoginRequest request){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.email(),
+                        request.dni(),
                         request.password()
                 )
         );
-        Usuario user = bddUsuario.findByEmail(request.email());
+        Usuario user = bddUsuario.findByDni(request.dni());
         if(user==null){throw new UsernameNotFoundException("Usuario no encontrado");}
         String jwtToken = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user,jwtToken);
-        return new TokenResponse(jwtToken,refreshToken);
+        return new TokenResponse(jwtToken,refreshToken,"administrativo");
     }
 
     private void revokeAllUserTokens(final Usuario user){
@@ -83,16 +83,16 @@ public class AuthService {
     public TokenResponse authenticate(final AuthRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.email(),
+                        request.dni(),
                         request.password()
                 )
         );
-        final Usuario user = (Usuario) bddUsuario.findByEmail(request.email()).orElseThrow(new UsernameNotFoundException("Usuario no encontrado"));
+        final Usuario user = (Usuario) bddUsuario.findByDni(request.dni()).orElseThrow(new UsernameNotFoundException("Usuario no encontrado"));
         final String accessToken = jwtService.generateToken(user);
         final String refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, accessToken);
-        return new TokenResponse(accessToken, refreshToken);
+        return new TokenResponse(accessToken, refreshToken,"administrativo");
     }
 
 
@@ -102,12 +102,12 @@ public class AuthService {
             throw new IllegalArgumentException("Invalid auth header");
         }
         final String refreshToken = authentication.substring(7);
-        final String userEmail = jwtService.extractUsername(refreshToken);
-        if (userEmail == null) {
+        final String userDNI = jwtService.extractUsername(refreshToken);
+        if (userDNI == null) {
             return null;
         }
 
-        final Usuario user = (Usuario) this.bddUsuario.findByEmail(userEmail).orElseThrow(new UsernameNotFoundException("Usuario no encontrado"));
+        final Usuario user = (Usuario) this.bddUsuario.findByDni(userDNI).orElseThrow(new UsernameNotFoundException("Usuario no encontrado"));
         final boolean isTokenValid = jwtService.isTokenValid(refreshToken, user);
         if (!isTokenValid) {
             return null;
@@ -117,7 +117,7 @@ public class AuthService {
         revokeAllUserTokens(user);
         saveUserToken(user, accessToken);
 
-        return new TokenResponse(accessToken, refreshToken);
+        return new TokenResponse(accessToken, refreshToken,"administrativo");
     }
 
 }

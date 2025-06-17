@@ -56,10 +56,8 @@ public class UsuarioService_impl implements UsuarioService{
 
     public Usuario getLogingUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-         String email = ((User) authentication.getPrincipal()).getUsername();
-         return usuarioRepository.findByEmail(email);
-
-
+         String Dni = ((User) authentication.getPrincipal()).getUsername();
+         return usuarioRepository.findByDni(Dni);
     }
 
     public Usuario obtenerUsuario(UsuarioDTO usuarioDTO) {

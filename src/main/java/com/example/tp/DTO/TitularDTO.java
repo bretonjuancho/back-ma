@@ -10,7 +10,7 @@ public class TitularDTO {
     private String apellido;
     private String documento;
     private String tipoDocumento;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
     private String direccion;
     private String grupoSanguineo;

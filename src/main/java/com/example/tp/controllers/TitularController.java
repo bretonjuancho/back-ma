@@ -34,6 +34,7 @@ public class TitularController {
     }
 
     @GetMapping("/titular")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> buscarTitular (@RequestParam(required = false) String documento,
                                             @RequestParam(required = false) String nombre,
                                             @RequestParam(required = false) String apellido){

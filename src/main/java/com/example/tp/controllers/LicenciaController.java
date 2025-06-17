@@ -21,6 +21,7 @@ public class LicenciaController {
     private LicenciaService_impl licenciaService;
 
     @PostMapping ("/licencia/guardar")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> guardarLicencia(@RequestBody LicenciaDTO licencia) {
         System.out.println("se llego al back");
         System.out.println(licencia.getTitular().getDocumento());

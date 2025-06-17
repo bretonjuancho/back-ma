@@ -59,6 +59,9 @@ public class Usuario {
         this.apellido = apellido;
         this.email = email;
         this.password = password;
+        this.gestionesCreador = new ArrayList<>();
+        this.licenciasEmitidas = new ArrayList<>();
+        this.titularesCreados = new ArrayList<>();
     }
 
     public Usuario(UsuarioDTO usuario) {
@@ -67,6 +70,9 @@ public class Usuario {
         this.apellido = usuario.getApellido();
         this.email = usuario.getEmail();
         this.password = usuario.getPassword();
+        this.gestionesCreador = new ArrayList<>();
+        this.licenciasEmitidas = new ArrayList<>();
+        this.titularesCreados = new ArrayList<>();
     }
 
     public Object orElseThrow(Object o) {

@@ -16,7 +16,7 @@ public class LicenciaDTO {
     private String observaciones;
     @Getter
     @Setter
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fechaEmision;
     @Setter
     @Getter

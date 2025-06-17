@@ -35,7 +35,7 @@ public class JwtService {
         return Jwts.builder()
                 .id(n.toString())
                 .claims(Map.of("name",usuario.getNombre()))
-                .subject(usuario.getEmail())
+                .subject(usuario.getDni())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSingInKey())
@@ -60,7 +60,7 @@ public class JwtService {
 
     public boolean isTokenValid(final String token, final Usuario usuario) {
         final String username = extractUsername(token);
-        return(username.equals(usuario.getEmail()) && !isTokenExpired(token));
+        return(username.equals(usuario.getDni()) && !isTokenExpired(token));
     }
 
     private Date extractExpiration(final String token) {

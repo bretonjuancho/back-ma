@@ -6,6 +6,7 @@ import com.example.tp.service.UsuarioService_impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,8 @@ public class UsuarioController {
     @Autowired
     UsuarioService_impl usuarioServiceImpl;
 
-    @PostMapping("/usuario/crear")//hay que agregar la url
+    @PostMapping("/usuario/crear")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> crearUsuario(@RequestBody UsuarioDTO usuarioDto){
         try {
             if (!usuarioServiceImpl.usuarioExiste(usuarioDto)) {

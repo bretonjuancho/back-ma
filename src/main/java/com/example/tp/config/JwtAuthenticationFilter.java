@@ -50,21 +50,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         final String jwt = authHeader.substring(7);
-        final String userEmail = jwtService.extractUsername(jwt);
+        final String userDni = jwtService.extractUsername(jwt);
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (userEmail == null || authentication != null) {
+        if (userDni == null || authentication != null) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        final UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+        final UserDetails userDetails = this.userDetailsService.loadUserByUsername(userDni);
         final boolean isTokenExpiredOrRevoked = tokenRepository.findByToken(jwt)
                 .map(token -> !token.getIsExpired() && !token.getIsRevoked())
                 .orElse(false);
 
 
         if (isTokenExpiredOrRevoked) {
-            final Optional<Usuario> user = Optional.ofNullable(userRepository.findByEmail(userEmail));
+            final Optional<Usuario> user = Optional.ofNullable(userRepository.findByDni(userDni));
 
             if (user.isPresent()) {
                 final boolean isTokenValid = jwtService.isTokenValid(jwt, user.get());

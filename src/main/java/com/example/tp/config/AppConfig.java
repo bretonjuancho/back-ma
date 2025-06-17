@@ -24,10 +24,10 @@ public class AppConfig {
    @Bean
    public UserDetailsService userDetailsService() {
        return username -> {
-           final Usuario user = usuarioRepository.findByEmail(username);
+           final Usuario user = usuarioRepository.findByDni(username);
            if(user==null) {throw new UsernameNotFoundException("Usuario no encontrado");}
            return org.springframework.security.core.userdetails.User.builder()
-                   .username(user.getEmail())
+                   .username(user.getDni())
                    .password(user.getPassword())
                    .build();
        };

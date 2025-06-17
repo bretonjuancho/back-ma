@@ -6,6 +6,7 @@ import com.example.tp.service.AdministradorService;
 import com.example.tp.service.LicenciaService_impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -16,12 +17,14 @@ public class AdministradorController {
     private AdministradorService administradorService;
 
     @GetMapping("/administrador/nuevoUsuario")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String nuevoUsuario() {
         return "administrador/nueva";//esta seria la parte de mostrar el formulario de la licencia
         //habria q profundizar en esto mas adelante
     }
 
     @PostMapping("/administrador/guardarUsuario")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String guardarUsuario(UsuarioDTO usuario) {
         administradorService.guardarUsuario(usuario); //esta mal, no debe ir en administrdor service, la creacion del usuario
         return "redirect:/licencia";
