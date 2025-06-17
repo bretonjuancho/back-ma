@@ -19,8 +19,10 @@ public class TitularController {
     private TitularService_impl titularService;
 
     @PostMapping("/titular/crear")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> crearTitular (@RequestBody TitularDTO titularDTO) {
-       try{
+        
+        try{
            titularService.validarDatosTitular(titularDTO);
            Titular titular = titularService.crearTitular(titularDTO);
            return ResponseEntity.status(HttpStatus.CREATED).body(titular);
