@@ -22,11 +22,11 @@ public class GestionUsuario {
     @SequenceGenerator(name = "licencia_seq", sequenceName = "licencia_seq", allocationSize = 1)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "administrador_id", nullable = false)
     private Administrador administrador;
 

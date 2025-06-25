@@ -4,11 +4,14 @@ package com.example.tp.modelo;
 import com.example.tp.DTO.UsuarioDTO;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Builder
 @AllArgsConstructor
 @Entity
 @Table(name = "usuario")
@@ -19,7 +22,7 @@ public class Usuario {
     @SequenceGenerator(name = "usuario_seq", sequenceName = "usuario_seq", allocationSize = 1)
     private int id;
 
-    @Column(name = "dni")
+    @Column(name = "dni", unique = true, nullable = false)
     private String dni;
 
     @Column(name = "nombre")
@@ -34,14 +37,18 @@ public class Usuario {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<GestionUsuario> gestionesCreador;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<GestionLicencia> licenciasEmitidas;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<GestionTitular> titularesCreados;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Token> tokens;
+
 
     public Usuario() {
     }
@@ -52,6 +59,9 @@ public class Usuario {
         this.apellido = apellido;
         this.email = email;
         this.password = password;
+        this.gestionesCreador = new ArrayList<>();
+        this.licenciasEmitidas = new ArrayList<>();
+        this.titularesCreados = new ArrayList<>();
     }
 
     public Usuario(UsuarioDTO usuario) {
@@ -60,6 +70,12 @@ public class Usuario {
         this.apellido = usuario.getApellido();
         this.email = usuario.getEmail();
         this.password = usuario.getPassword();
+        this.gestionesCreador = new ArrayList<>();
+        this.licenciasEmitidas = new ArrayList<>();
+        this.titularesCreados = new ArrayList<>();
     }
 
+    public Object orElseThrow(Object o) {
+        return null;
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.tp.modelo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,12 +22,14 @@ public class GestionTitular {
     @SequenceGenerator(name = "licencia_seq", sequenceName = "licencia_seq", allocationSize = 1)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "titularId", nullable = false)
+    @JsonManagedReference
     private Titular titular;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonManagedReference
     private Usuario usuario;
 
     @Column(name = "motivo")
@@ -39,9 +43,10 @@ public class GestionTitular {
     private LocalDateTime fechaTiempo;
 
     public GestionTitular() {}
-    public GestionTitular(Titular titular, Usuario usuario) {
+    public GestionTitular(Titular titular, Usuario usuario,String motivo) {
         this.titular = titular;
         this.usuario = usuario;
+        this.motivo = motivo;
         this.fechaTiempo = LocalDateTime.now();
     }
 }

@@ -1,0 +1,22 @@
+server:
+  port: 8081
+
+application:
+  security:
+    jwt:
+      secret-key: MfdjismfsdKMFSIEfkemsei23MkiFDJSIKm234jFKDLSAJfldfksjifesjlk543gfds
+      expiration: 86400000 #un dia
+      refresh-token:
+        expiration: 604800000 #una semana
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/metodos_agiles
+    username: root
+    password: mateosql
+
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: false

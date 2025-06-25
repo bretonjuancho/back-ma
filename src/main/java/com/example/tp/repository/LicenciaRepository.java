@@ -12,8 +12,8 @@ import java.util.List;
 
 @Repository
 public interface LicenciaRepository extends JpaRepository<Licencia, Integer> {
-    @Query(value = "SELECT * FROM Licencia WHERE tipoLicencia = :tipoDeLicencia AND titular_id = :titular", nativeQuery = true)
-    List<Licencia> buscarLicenciaByTipoYTitular(@Param("tipoDeLicencia") String  tipo, @Param("titular") int titular );
+    @Query(value = "SELECT * FROM licencia WHERE clase_licencia = :claseDeLicencia AND titular_id = :titular", nativeQuery = true)
+    List<Licencia> buscarLicenciaByClaseYTitular(@Param("claseDeLicencia") String  tipo, @Param("titular") int titular );
 
 
 }

@@ -6,6 +6,9 @@ import com.example.tp.modelo.Titular;
 import com.example.tp.service.LicenciaService;
 import com.example.tp.service.LicenciaService_impl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.example.tp.service.TitularService;
@@ -17,17 +20,17 @@ public class LicenciaController {
     @Autowired
     private LicenciaService_impl licenciaService;
 
-   /* @GetMapping("/licencia/nueva")
-    public String nuevaLicencia() {
-        return "licencia/nueva";//esta seria la parte de mostrar el formulario de la licencia
-        //habria q profundizar en esto mas adelante
-    }*/
-
     @PostMapping ("/licencia/guardar")
-    public String guardarLicencia(LicenciaDTO licencia) {
-        if(!licenciaService.edadMinima(licencia)) return "redirect:/licencia/nueva";//aca habria q tirar un error y pedir q arranque de vuelta
-        if(!licenciaService.profesional(licencia)) return "redirect:/licencia/nueva";//aca habria q tirar un error
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<?> guardarLicencia(@RequestBody LicenciaDTO licencia) {
+        System.out.println("se llego al back");
+        System.out.println(licencia.getTitular().getDocumento());
+        if(!licenciaService.edadMinima(licencia)) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se alcanza la edad minima de la licencia");//aca habria q tirar un error y pedir q arranque de vuelta
+        if(licenciaService.repetida(licencia)) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ya existe una licencia de este tipo. Desea renovar?");//aca habria q tirar un error y pedir q arranque de vuelta
+        if(!licenciaService.profesional(licencia)) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El titular no es apto para obtener la licencia profesional "+licencia.getClase());//aca habria q tirar un error
+
         licenciaService.guardarLicencia(licencia);
-        return "redirect:/licencia";
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(licencia);
     }
 }
