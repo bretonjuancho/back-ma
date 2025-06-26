@@ -11,6 +11,7 @@ import com.example.tp.repository.LicenciaRepository;
 import com.example.tp.repository.TitularRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -31,7 +32,7 @@ public class LicenciaService_impl implements LicenciaService{
 
     public boolean repetida(LicenciaDTO licencia){
         Titular titular = buscarTitularByDocumento(licencia.getTitular().getDocumento());
-        List<Licencia> lic = bdd_licencia.buscarLicenciaByClaseYTitular(licencia.getClase(), titular.getId());
+        List<Licencia> lic = buscarLicenciaByClaseYTitular(licencia.getClase(), titular);
         if(lic.isEmpty()) return false;
         return true;
     }
@@ -93,6 +94,7 @@ public class LicenciaService_impl implements LicenciaService{
     public void guardarLicencia(LicenciaDTO licencia){
         Titular duenio=bdd_titular.findByDocumento(licencia.getTitular().getDocumento());
         Licencia save= new Licencia(licencia,duenio);
+        save.setActiva(true);
         LocalDate fechaExpiracion=calcularValidez(save,duenio);
         save.setFechaExpiracion(fechaExpiracion);
         bdd_licencia.save(save);
@@ -141,7 +143,7 @@ public class LicenciaService_impl implements LicenciaService{
         int edad= Period.between(nacimiento,LocalDate.now()).getYears();
         if(edad<21){
             LocalDate ret;
-            if(bdd_licencia.buscarLicenciaByClaseYTitular(save.getClaseLicencia(),duenio.getId()).size()==1) ret=nacimiento.plusYears(1);
+            if(buscarLicenciaByClaseYTitular(save.getClaseLicencia(),duenio).size()==1) ret=nacimiento.plusYears(1);
             else  ret=nacimiento.plusYears(3);
             return ret;
         }
@@ -174,7 +176,7 @@ public class LicenciaService_impl implements LicenciaService{
         int edad= Period.between(nacimiento,LocalDate.now()).getYears();
         if(edad<21){
             LocalDate ret;
-            if(bdd_licencia.buscarLicenciaByClaseYTitular(save.getClaseLicencia(),duenio.getId()).size()==1) return 1;
+            if(buscarLicenciaByClaseYTitular(save.getClaseLicencia(),duenio).size()==1) return 1;
             else  return 3;
         }
         else{
@@ -195,5 +197,16 @@ public class LicenciaService_impl implements LicenciaService{
                 }
             }
         }
+    }
+
+    public List<Licencia> buscarLicenciasVigentes(LicenciaDTO licencia){
+        return bdd_licencia.buscarLicenciasVigentes(licencia.getFechaEmision(),
+                licencia.getFechaVencimiento(),
+                licencia.getTitular().getNombre(),
+                licencia.getTitular().getApellido(),
+                licencia.getNumero(),
+                licencia.getTitular().getGrupoSanguineo(),
+                licencia.getTitular().getFactorRH(),
+                licencia.getTitular().isDonante());
     }
 }

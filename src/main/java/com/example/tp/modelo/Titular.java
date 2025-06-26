@@ -80,4 +80,7 @@ public class Titular {
         this.donante = donante;
     }
 
+    public void addGestion(GestionTitular gest){
+        this.gestiones.add(gest);
+    }
 }

@@ -41,6 +41,16 @@ public class Licencia {
     @Setter
     private String observaciones;
 
+    @Column(name = "numero")
+    @Getter
+    @Setter
+    private int numero;
+
+    @Column(name = "activa")
+    @Getter
+    @Setter
+    private Boolean activa;
+
     @Setter
     @Getter
     @ManyToOne(fetch = FetchType.LAZY)

@@ -17,6 +17,17 @@ public class Administrador {
     @SequenceGenerator(name = "administrador_seq", sequenceName = "administrador_seq", allocationSize = 1)
     private Long id;
 
+    @Column(name = "nombre")
+    private String nombre;
+
+    @Column(name = "apellido")
+    private String apellido;
+
+    @Column(name = "DNI")
+    private String dni;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;

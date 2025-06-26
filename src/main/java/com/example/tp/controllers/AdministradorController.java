@@ -2,13 +2,18 @@ package com.example.tp.controllers;
 
 import com.example.tp.DTO.LicenciaDTO;
 import com.example.tp.DTO.UsuarioDTO;
+import com.example.tp.modelo.Administrador;
+import com.example.tp.modelo.Usuario;
 import com.example.tp.service.AdministradorService;
 import com.example.tp.service.LicenciaService_impl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 
@@ -16,17 +21,21 @@ public class AdministradorController {
     @Autowired
     private AdministradorService administradorService;
 
-    @GetMapping("/administrador/nuevoUsuario")
-    @CrossOrigin(origins = "http://localhost:3000")
-    public String nuevoUsuario() {
-        return "administrador/nueva";//esta seria la parte de mostrar el formulario de la licencia
-        //habria q profundizar en esto mas adelante
-    }
 
-    @PostMapping("/administrador/guardarUsuario")
+
+    @PostMapping("/administrador/crear")
     @CrossOrigin(origins = "http://localhost:3000")
-    public String guardarUsuario(UsuarioDTO usuario) {
-        administradorService.guardarUsuario(usuario); //esta mal, no debe ir en administrdor service, la creacion del usuario
-        return "redirect:/licencia";
+    public ResponseEntity<?> crearAdministrador(@RequestBody Administrador administrador) {
+        try {
+            if (!administradorService.existeAdmin(administrador)) {
+                administradorService.crearAdministrador(administrador);
+                return ResponseEntity.status(HttpStatus.CREATED).body(administrador);
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El administrador  ya existe.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+
     }
 }

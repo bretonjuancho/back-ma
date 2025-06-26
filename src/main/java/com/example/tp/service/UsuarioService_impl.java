@@ -1,8 +1,10 @@
 package com.example.tp.service;
 
+import com.example.tp.DTO.TitularDTO;
 import com.example.tp.DTO.UsuarioDTO;
 import com.example.tp.excepciones.bddException.ErrorAlAccederABDDException;
 import com.example.tp.excepciones.usuario.*;
+import com.example.tp.modelo.Titular;
 import com.example.tp.modelo.Usuario;
 import com.example.tp.repository.UsuarioRepository;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -73,9 +75,24 @@ public class UsuarioService_impl implements UsuarioService{
         String password = usuarioDTO.getPassword();
         Usuario usuario = new Usuario(dni,nombre, apellido, email, password);
         usuarioRepository.save(usuario);
+
+        //registrar quien lo hizo
         return usuario;
     }
 
+    public Usuario modificarUsuario(UsuarioDTO usuarioDTO) {
+        Usuario usuario = usuarioRepository.findByDni(usuarioDTO.getDni());
+        usuario.setNombre(usuarioDTO.getNombre());
+        usuario.setApellido(usuarioDTO.getApellido());
+        usuario.setEmail(usuarioDTO.getEmail());
+        usuario.setPassword(usuarioDTO.getPassword());
+        usuarioRepository.save(usuario);
+
+        //gestion del admin
+        return usuario;
+
+
+    }
 
 
 }

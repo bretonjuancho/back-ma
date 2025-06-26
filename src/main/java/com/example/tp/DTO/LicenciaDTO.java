@@ -13,11 +13,18 @@ public class LicenciaDTO {
     private String clase;
     @Setter
     @Getter
+    private int numero;
+    @Setter
+    @Getter
     private String observaciones;
     @Getter
     @Setter
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fechaEmision;
+    @Getter
+    @Setter
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate fechaVencimiento;
     @Setter
     @Getter
     private TitularDTO titular;

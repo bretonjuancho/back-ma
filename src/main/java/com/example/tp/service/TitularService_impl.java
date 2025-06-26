@@ -3,9 +3,14 @@ package com.example.tp.service;
 import com.example.tp.DTO.TitularDTO;
 import com.example.tp.excepciones.titular.TitularDatosInvalidos;
 import com.example.tp.excepciones.titular.TitularNoEncontradoException;
-import com.example.tp.modelo.Titular;
+import com.example.tp.modelo.*;
+import com.example.tp.repository.GestionTitularRepository;
 import com.example.tp.repository.TitularRepository;
+import com.example.tp.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
@@ -14,6 +19,8 @@ import java.util.List;
 public class TitularService_impl {
     @Autowired
     private TitularRepository titularRepository;
+    private GestionTitularRepository gestionTitularRepository;
+    private UsuarioRepository usuarioRepository;
 
     public List<Titular> ListarTitulares() {
         return titularRepository.findAll();
@@ -64,6 +71,7 @@ public class TitularService_impl {
             else return false;
         }
     }
+
     public boolean validarDatosTitular(TitularDTO titularDTO)throws TitularDatosInvalidos {
         if (!validarTexto(titularDTO.getNombre())) throw new TitularDatosInvalidos("El nombre del titular no es valido: " + titularDTO.getNombre());
         if (!validarTexto((titularDTO.getApellido()))) throw new TitularDatosInvalidos("El apellido no es valido: " + titularDTO.getApellido());
@@ -72,7 +80,18 @@ public class TitularService_impl {
         if (!validarFactorRH(titularDTO.getFactorRH())) throw new TitularDatosInvalidos("El factorRH no es valido.");
         if (!validarDocumento(titularDTO.getDocumento(),titularDTO.getTipoDocumento())) throw new TitularDatosInvalidos("El documento no es valido.");
         return true;
+    }
 
+    private GestionTitular gestionTitular(Titular titular, Usuario usuario, String motivo){
+        GestionTitular gestionTitular = new GestionTitular(titular,usuario,motivo);
+        gestionTitularRepository.save(gestionTitular);
+        return gestionTitular;
+    }
+
+    public Usuario getLogingUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String Dni = ((User) authentication.getPrincipal()).getUsername();
+        return usuarioRepository.findByDni(Dni);
     }
 
     public Titular crearTitular(TitularDTO titularDTO) {
@@ -90,6 +109,28 @@ public class TitularService_impl {
 
         Titular titular = new Titular(nombre,apellido,documento,tipoDocumento, fechaNacimiento, direccion, grupoSanguineo, factorRH,donante);
         titularRepository.save(titular);
+
+        //gestion titular:
+        Usuario logUser = getLogingUser();
+        titular.addGestion(gestionTitular(titular,logUser,"Creacion"));
+
+        return titular;
+
+
+    }
+
+    public Titular modificarTitular(TitularDTO titularDTO) {
+        Titular titular = titularRepository.findByDocumento(titularDTO.getDocumento());
+        titular.setNombre(titularDTO.getNombre());
+        titular.setApellido(titularDTO.getApellido());
+        titular.setDireccion(titularDTO.getDireccion());
+        titular.setDonante(titularDTO.isDonante());
+        titularRepository.save(titular);
+
+        //gestion titular:
+        Usuario logUser = getLogingUser();
+        titular.addGestion(gestionTitular(titular,logUser,"Modificacion"));
+
         return titular;
 
 
@@ -104,4 +145,6 @@ public class TitularService_impl {
         throw  new TitularNoEncontradoException("No se encontro un titular con los filtros aplicados");
 
     }
+
+
 }
