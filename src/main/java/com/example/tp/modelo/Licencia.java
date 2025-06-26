@@ -41,7 +41,7 @@ public class Licencia {
     @Setter
     private String observaciones;
 
-    @Column(name = "numero")
+    @Column(name = "numero",unique = true)
     @Getter
     @Setter
     private int numero;

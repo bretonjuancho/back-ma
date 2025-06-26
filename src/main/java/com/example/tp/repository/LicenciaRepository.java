@@ -17,6 +17,8 @@ public interface LicenciaRepository extends JpaRepository<Licencia, Integer> {
     @Query(value = "SELECT * FROM licencia WHERE clase_licencia = :claseDeLicencia AND titular_id = :titular", nativeQuery = true)
     List<Licencia> buscarLicenciaByClaseYTitular(@Param("claseDeLicencia") String  tipo, @Param("titular") int titular );
 
+    Licencia findByNumero(int numero);
+
     @Query(value = "SELECT * " +
             "FROM licencia  l INNER JOIN titular t ON l.titular_id = t.idTitular " +
             "WHERE (:fechaDeEmision IS NULL OR l.fecha_emision = :fechaDeEmision) AND " +

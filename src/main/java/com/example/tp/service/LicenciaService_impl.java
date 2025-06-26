@@ -1,7 +1,9 @@
 package com.example.tp.service;
 
 import com.example.tp.DTO.LicenciaDTO;
-import com.example.tp.DTO.TitularDTO;
+import com.example.tp.excepciones.licencia.LicenciaDatosInvalidosException;
+import com.example.tp.excepciones.licencia.LicenciaNoEncontradaException;
+import com.example.tp.excepciones.titular.TitularNoEncontradoException;
 import com.example.tp.modelo.GestionLicencia;
 import com.example.tp.modelo.Licencia;
 import com.example.tp.modelo.Titular;
@@ -9,9 +11,12 @@ import com.example.tp.modelo.Usuario;
 import com.example.tp.repository.GestionLicenciaRepository;
 import com.example.tp.repository.LicenciaRepository;
 import com.example.tp.repository.TitularRepository;
+import com.example.tp.repository.UsuarioRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
-import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -27,44 +32,46 @@ public class LicenciaService_impl implements LicenciaService{
     private UsuarioService_impl usuarioService;
     @Autowired
     private GestionLicenciaRepository gestionLicenciaRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     public LicenciaService_impl() {}
 
-    public boolean repetida(LicenciaDTO licencia){
+    public boolean repetida(LicenciaDTO licencia) throws LicenciaDatosInvalidosException{
         Titular titular = buscarTitularByDocumento(licencia.getTitular().getDocumento());
         List<Licencia> lic = buscarLicenciaByClaseYTitular(licencia.getClase(), titular);
-        if(lic.isEmpty()) return false;
-        return true;
+        if(lic.isEmpty())  return false;
+        throw new LicenciaDatosInvalidosException("La licencia se encuentra repetida en el sistema.");
     }
 
 
-    public boolean edadMinima(LicenciaDTO licencia){
+    public boolean edadMinima(LicenciaDTO licencia) throws LicenciaDatosInvalidosException{
         LocalDate nacimiento = licencia.getTitular().getFechaNacimiento();
         LocalDate hoy = LocalDate.now();
         int edad= Period.between(nacimiento,hoy).getYears();
         if((licencia.getClase().equals("A") ||
                 licencia.getClase().equals("B") ||
                 licencia.getClase().equals("F") ||
-                licencia.getClase().equals("G")) && edad<17){return false; }
+                licencia.getClase().equals("G")) && edad<17){throw new LicenciaDatosInvalidosException("No cumple los requerimientos de edad minima para obtener la licencia.") ; }
         if((licencia.getClase().equals("C") ||
                 licencia.getClase().equals("D") ||
-                licencia.getClase().equals("E")) && edad<21){return false; }
+                licencia.getClase().equals("E")) && edad<21){throw new LicenciaDatosInvalidosException("No cumple los requerimientos de edad minima para obtener la licencia.") ; }
         return true;
     };
 
-    public boolean profesional(LicenciaDTO licencia){
+    public boolean profesional(LicenciaDTO licencia) throws LicenciaDatosInvalidosException{
         if (licencia.getClase().equals("A") ||
                 licencia.getClase().equals("B") ||
                 licencia.getClase().equals("F") ||
                 licencia.getClase().equals("G")) {return true;}
         Titular titular = buscarTitularByDocumento(licencia.getTitular().getDocumento());
         Licencia licenciaB= licenciaMasVieja(buscarLicenciaByClaseYTitular(licencia.getClase(),titular));
-        if(licenciaB==null){return false;}
+        if(licenciaB==null){throw new LicenciaDatosInvalidosException("No cumple los requerimientos para obtener licencia profesional.") ;}
         LocalDate emision=licenciaB.getFechaEmision();
         LocalDate hoy=LocalDate.now();
         int tiempo= Period.between(emision,hoy).getYears();
         if(tiempo>=1){return true;}
-        return false;
+        throw new LicenciaDatosInvalidosException("No cumple los requerimientos para obtener licencia profesional.") ;
     }
 
     public Titular buscarTitularByDocumento(String documento){
@@ -208,5 +215,44 @@ public class LicenciaService_impl implements LicenciaService{
                 licencia.getTitular().getGrupoSanguineo(),
                 licencia.getTitular().getFactorRH(),
                 licencia.getTitular().isDonante());
+    }
+
+    public Licencia modificarLicencia(LicenciaDTO licenciaDTO) throws LicenciaNoEncontradaException{
+        Licencia licencia = bdd_licencia.findByNumero(licenciaDTO.getNumero());
+        if (licencia == null) throw new LicenciaNoEncontradaException("No se encontro la licenia en la Base de Datos");
+        licencia.setFechaEmision(licenciaDTO.getFechaEmision());
+        licencia.setFechaExpiracion(licenciaDTO.getFechaVencimiento());
+        licencia.setClaseLicencia(licenciaDTO.getClase());
+        licencia.setObservaciones(licenciaDTO.getObservaciones());
+        //licencia.setActiva(); falta ponerle al DTO si esta activa o no
+        bdd_licencia.save(licencia);
+
+        //gestion titular:
+        Usuario logUser = usuarioService.getLogingUser();
+        licencia.addGestionLicencia(gestionLicencia(licencia,logUser,"Modificacion"));
+        
+        
+        return licencia;
+    }
+
+    public Licencia renovarLicencia(LicenciaDTO licenciaDTO) throws TitularNoEncontradoException,LicenciaNoEncontradaException{
+        Titular titular = bdd_titular.findByDocumento(licenciaDTO.getTitular().getDocumento());
+        if(titular == null) throw new TitularNoEncontradoException("No se pudo obtener el titular");
+
+        Licencia licencia = bdd_licencia.findByNumero(licenciaDTO.getNumero());
+        if(licencia == null) throw new LicenciaNoEncontradaException("No se pudo obtener la licencia.");
+
+        LocalDate validez = calcularValidez(licencia, titular);
+        licencia.setFechaExpiracion(validez);
+
+        bdd_licencia.save(licencia);
+
+        //gestion titular:
+        Usuario logUser = usuarioService.getLogingUser();
+        licencia.addGestionLicencia(gestionLicencia(licencia,logUser,"Renovacion"));
+
+        return licencia;
+
+
     }
 }

@@ -1,6 +1,5 @@
 package com.example.tp.DTO;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 

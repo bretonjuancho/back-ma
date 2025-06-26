@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="838d4fd1-acf5-47e0-9bcc-47f79cb54480" name="Changes" comment="Cambios en la parte de usuario, tambien se agregaron excepciones y cambio de dependencias agregando una dependencia al xml" />
+    <list default="true" id="838d4fd1-acf5-47e0-9bcc-47f79cb54480" name="Changes" comment="Cambios en la parte de usuario, tambien se agregaron excepciones y cambio de dependencias agregando una dependencia al xml">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tp/modelo/Comprobante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tp/modelo/Comprobante.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tp/repository/GestionLicenciaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tp/repository/GestionLicenciaRepository.java" afterDir="false" />
+    </list>
     <list id="6153a014-0e31-4d1b-b4fa-1093f2967fd4" name="Changes by Juan" comment="" />
     <list id="0ff6f557-aa2f-4f88-96a4-12459fe3c8fb" name="Changes by PC" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +61,8 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.TpApplication.executor": "Run",
+    "git-widget-placeholder": "merge",
+    "last_opened_file_path": "/home/mateo-gastaldi/MATEO/FACU/4TO/Metodos Agiles/back-ma",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -117,6 +124,8 @@
       <workItem from="1750181516123" duration="1073000" />
       <workItem from="1750936775788" duration="553000" />
       <workItem from="1750937395689" duration="104000" />
+      <workItem from="1750939325032" duration="117000" />
+      <workItem from="1750939450928" duration="159000" />
     </task>
     <servers />
   </component>

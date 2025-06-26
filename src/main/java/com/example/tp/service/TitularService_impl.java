@@ -119,8 +119,9 @@ public class TitularService_impl {
 
     }
 
-    public Titular modificarTitular(TitularDTO titularDTO) {
+    public Titular modificarTitular(TitularDTO titularDTO) throws TitularNoEncontradoException{
         Titular titular = titularRepository.findByDocumento(titularDTO.getDocumento());
+        if(titular == null) throw new TitularNoEncontradoException("El titular con documento: " + titularDTO.getDocumento() + " no fue encontrado.")
         titular.setNombre(titularDTO.getNombre());
         titular.setApellido(titularDTO.getApellido());
         titular.setDireccion(titularDTO.getDireccion());
