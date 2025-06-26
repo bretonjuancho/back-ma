@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="838d4fd1-acf5-47e0-9bcc-47f79cb54480" name="Changes" comment="Cambios en la parte de usuario, tambien se agregaron excepciones y cambio de dependencias agregando una dependencia al xml" />
+    <list id="6153a014-0e31-4d1b-b4fa-1093f2967fd4" name="Changes by Juan" comment="" />
+    <list id="0ff6f557-aa2f-4f88-96a4-12459fe3c8fb" name="Changes by PC" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Exception" />
+        <option value="Record" />
+        <option value="Enum" />
+        <option value="Class" />
+        <option value="Interface" />
+        <option value="Spring Repository" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="merge" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2yJfkL0eogswbGCvkZVRUb9cWyM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.TpApplication.executor": "Run",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="TP" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="TP" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TpApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="TP" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.tp.TpApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="838d4fd1-acf5-47e0-9bcc-47f79cb54480" name="Changes" comment="" />
+      <created>1749557739596</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1749557739596</updated>
+      <workItem from="1749557741081" duration="4987000" />
+      <workItem from="1749643839283" duration="555000" />
+      <workItem from="1749644544300" duration="4591000" />
+      <workItem from="1749660557554" duration="1843000" />
+      <workItem from="1749664090052" duration="1923000" />
+      <workItem from="1749767495548" duration="930000" />
+      <workItem from="1749836986357" duration="2223000" />
+      <workItem from="1750083659253" duration="2061000" />
+      <workItem from="1750101734913" duration="23252000" />
+      <workItem from="1750133483524" duration="7685000" />
+      <workItem from="1750176462797" duration="2779000" />
+      <workItem from="1750181516123" duration="1073000" />
+      <workItem from="1750936775788" duration="553000" />
+      <workItem from="1750937395689" duration="104000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cambios en la parte de usuario, tambien se agregaron excepciones y cambio de dependencias agregando una dependencia al xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios en la parte de usuario, tambien se agregaron excepciones y cambio de dependencias agregando una dependencia al xml" />
+  </component>
+</project>

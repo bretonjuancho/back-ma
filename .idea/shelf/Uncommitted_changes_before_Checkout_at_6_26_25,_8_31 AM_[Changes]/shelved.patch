@@ -1,0 +1,49 @@
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\n    <modelVersion>4.0.0</modelVersion>\n    <parent>\n        <groupId>org.springframework.boot</groupId>\n        <artifactId>spring-boot-starter-parent</artifactId>\n        <version>3.5.0</version>\n        <relativePath/> <!-- lookup parent from repository -->\n    </parent>\n    <groupId>com.example</groupId>\n    <artifactId>TP</artifactId>\n    <version>0.0.1-SNAPSHOT</version>\n    <name>TP</name>\n    <description>TP</description>\n    <url/>\n    <licenses>\n        <license/>\n    </licenses>\n    <developers>\n        <developer/>\n    </developers>\n    <scm>\n        <connection/>\n        <developerConnection/>\n        <tag/>\n        <url/>\n    </scm>\n    <properties>\n        <java.version>17</java.version>\n    </properties>\n    <dependencies>\n        <dependency>\n            <groupId>org.springframework.boot</groupId>\n            <artifactId>spring-boot-starter</artifactId>\n        </dependency>\n\n        <dependency>\n            <groupId>org.springframework.boot</groupId>\n            <artifactId>spring-boot-starter-security</artifactId>\n        </dependency>\n\n        <dependency>\n            <groupId>org.springframework.boot</groupId>\n            <artifactId>spring-boot-starter-test</artifactId>\n            <scope>test</scope>\n        </dependency>\n\n        <dependency>\n            <groupId>org.springframework.boot</groupId>\n            <artifactId>spring-boot-starter-web</artifactId>\n        </dependency>\n\n        <!-- Lombok -->\n        <dependency>\n            <groupId>org.projectlombok</groupId>\n            <artifactId>lombok</artifactId>\n            <optional>true</optional>\n        </dependency>\n\n        <dependency>\n            <groupId>io.jsonwebtoken</groupId>\n            <artifactId>jjwt-api</artifactId>\n            <version>0.12.5</version>\n        </dependency>\n\n        <dependency>\n            <groupId>io.jsonwebtoken</groupId>\n            <artifactId>jjwt-impl</artifactId>\n            <version>0.12.5</version>\n            <scope>runtime</scope>\n        </dependency>\n\n        <dependency>\n            <groupId>io.jsonwebtoken</groupId>\n            <artifactId>jjwt-jackson</artifactId>\n            <version>0.12.5</version>\n            <scope>runtime</scope>\n        </dependency>\n\n        <dependency>\n            <groupId>org.springframework.boot</groupId>\n            <artifactId>spring-boot-starter-data-jpa</artifactId>\n        </dependency>\n\n        <dependency>\n            <groupId>com.mysql</groupId>\n            <artifactId>mysql-connector-j</artifactId>\n        </dependency>\n\n        <dependency>\n            <groupId>commons-validator</groupId>\n            <artifactId>commons-validator</artifactId>\n            <version>1.7</version>\n        </dependency>\n\n    </dependencies>\n\n\n\n    <build>\n        <plugins>\n            <plugin>\n                <groupId>org.springframework.boot</groupId>\n                <artifactId>spring-boot-maven-plugin</artifactId>\n            </plugin>\n            <plugin>\n                <groupId>org.apache.maven.plugins</groupId>\n                <artifactId>maven-compiler-plugin</artifactId>\n                <version>3.11.0</version>\n                <configuration>\n                    <source>17</source>\n                    <target>17</target>\n                    <compilerArgs>\n                        <arg>-parameters</arg>\n                    </compilerArgs>\n                </configuration>\n            </plugin>\n        </plugins>\n    </build>\n\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 830085d71e34054cdb9d32b0dde3e30af796bf70)
++++ b/pom.xml	(date 1750937314692)
+@@ -93,6 +93,13 @@
+             <artifactId>commons-validator</artifactId>
+             <version>1.7</version>
+         </dependency>
++        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
++        <dependency>
++            <groupId>org.junit.jupiter</groupId>
++            <artifactId>junit-jupiter-api</artifactId>
++            <version>5.13.1</version>
++            <scope>test</scope>
++        </dependency>
+ 
+     </dependencies>
+ 
+Index: src/test/java/com/example/tp/UsuarioTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.tp;\n\nimport com.example.tp.controllers.UsuarioController;\nimport org.springframework.boot.test.context.SpringBootTest;\n\n@SpringBootTest(classes = UsuarioController.class)\npublic class UsuarioTest {\n\n}\n
+===================================================================
+diff --git a/src/test/java/com/example/tp/UsuarioTest.java b/src/test/java/com/example/tp/UsuarioTest.java
+--- a/src/test/java/com/example/tp/UsuarioTest.java	(revision 830085d71e34054cdb9d32b0dde3e30af796bf70)
++++ b/src/test/java/com/example/tp/UsuarioTest.java	(date 1750937157558)
+@@ -1,9 +1,16 @@
+ package com.example.tp;
+ 
+ import com.example.tp.controllers.UsuarioController;
++import com.example.tp.service.UsuarioService_impl;
++import org.junit.jupiter.api.Assertions;
++import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.boot.test.context.SpringBootTest;
+ 
+ @SpringBootTest(classes = UsuarioController.class)
+ public class UsuarioTest {
++    @Autowired
++    private UsuarioService_impl usuarioService;
++
++    Assertions.a
+ 
+ }
