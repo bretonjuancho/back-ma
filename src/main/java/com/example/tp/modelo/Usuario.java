@@ -75,6 +75,8 @@ public class Usuario {
         this.titularesCreados = new ArrayList<>();
     }
 
+    public void addGestionUsuario(GestionUsuario gestionUsuario){this.gestionesCreador.add(gestionUsuario);}
+
     public Object orElseThrow(Object o) {
         return null;
     }

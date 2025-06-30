@@ -1,5 +1,6 @@
 package com.example.tp.service;
 
+import com.example.tp.DTO.LicenciaConsultaDTO;
 import com.example.tp.DTO.LicenciaDTO;
 import com.example.tp.excepciones.licencia.LicenciaDatosInvalidosException;
 import com.example.tp.excepciones.licencia.LicenciaNoEncontradaException;
@@ -14,6 +15,7 @@ import com.example.tp.repository.TitularRepository;
 import com.example.tp.repository.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -147,10 +149,11 @@ public class LicenciaService_impl implements LicenciaService{
 
     public LocalDate calcularValidez(Licencia save,Titular duenio){
         LocalDate nacimiento=duenio.getFechaNacimiento();
-        int edad= Period.between(nacimiento,LocalDate.now()).getYears();
+        int edad = Period.between(nacimiento,LocalDate.now()).getYears();
         if(edad<21){
             LocalDate ret;
-            if(buscarLicenciaByClaseYTitular(save.getClaseLicencia(),duenio).size()==1) ret=nacimiento.plusYears(1);
+            if(buscarLicenciaByClaseYTitular(save.getClaseLicencia(),duenio).size()==1)
+                ret=nacimiento.plusYears(1);
             else  ret=nacimiento.plusYears(3);
             return ret;
         }
@@ -206,16 +209,23 @@ public class LicenciaService_impl implements LicenciaService{
         }
     }
 
-    public List<Licencia> buscarLicenciasVigentes(LicenciaDTO licencia){
-        return bdd_licencia.buscarLicenciasVigentes(licencia.getFechaEmision(),
-                licencia.getFechaVencimiento(),
-                licencia.getTitular().getNombre(),
-                licencia.getTitular().getApellido(),
-                licencia.getNumero(),
-                licencia.getTitular().getGrupoSanguineo(),
-                licencia.getTitular().getFactorRH(),
-                licencia.getTitular().isDonante());
+    public List<Licencia> buscarLicencias(LicenciaConsultaDTO licenciaConsultaDTO){
+        return bdd_licencia.buscarLicencias(
+                licenciaConsultaDTO.getFechaEmisionDesde(),
+                licenciaConsultaDTO.getFechaVencimientoHasta(),
+                licenciaConsultaDTO.getFechaVencimientoDesde(),
+                licenciaConsultaDTO.getFechaVencimientoHasta(),
+                licenciaConsultaDTO.isVigente(),
+                licenciaConsultaDTO.getClase(),
+                licenciaConsultaDTO.getNombre(),
+                licenciaConsultaDTO.getApellido(),
+                licenciaConsultaDTO.getNumeroLicencia(),
+                licenciaConsultaDTO.getGrupoSanguineo(),
+                licenciaConsultaDTO.getFactorRH(),
+                licenciaConsultaDTO.isDonante()
+        );
     }
+
 
     public Licencia modificarLicencia(LicenciaDTO licenciaDTO) throws LicenciaNoEncontradaException{
         Licencia licencia = bdd_licencia.findByNumero(licenciaDTO.getNumero());

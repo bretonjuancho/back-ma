@@ -1,5 +1,6 @@
 package com.example.tp.service;
 
+import com.example.tp.modelo.Administrador;
 import com.example.tp.modelo.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -25,8 +26,16 @@ public class JwtService {
         return buildToken(usuario,refreshExpiration);
     }
 
+    public String generateToken(final Administrador admin) {
+        return buildToken(admin,refreshExpiration);
+    }
+
     public String generateRefreshToken(final Usuario usuario) {
         return buildToken(usuario, refreshExpiration);
+    }
+
+    public String generateRefreshToken(final Administrador admin) {
+        return buildToken(admin, refreshExpiration);
     }
 
     public String buildToken(final Usuario usuario, final long expiration) {
@@ -36,6 +45,21 @@ public class JwtService {
                 .id(n.toString())
                 .claims(Map.of("name",usuario.getNombre()))
                 .subject(usuario.getDni())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSingInKey())
+                .compact();
+
+
+    }
+
+    public String buildToken(final Administrador admin, final long expiration) {
+        Integer n=admin.getId();
+
+        return Jwts.builder()
+                .id(n.toString())
+                .claims(Map.of("name",admin.getNombre()))
+                .subject(admin.getDni())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSingInKey())

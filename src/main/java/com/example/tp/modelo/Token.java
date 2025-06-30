@@ -37,5 +37,9 @@ public final class Token {
     @JoinColumn(name = "user_id")
     private Usuario user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
+    private Administrador admin;
+
 
 }

@@ -12,10 +12,11 @@ import com.example.tp.DTO.TitularDTO;
 import com.example.tp.modelo.Licencia;
 import com.example.tp.service.LicenciaService_impl;
 
+
 public class LicenciaTest {
     
-    @Autowired
-    LicenciaService_impl licenciaService;
+
+    LicenciaService_impl licenciaService =  new LicenciaService_impl();
 
     LocalDate date1 = LocalDate.of(2004, 10, 1);
     LocalDate date2 = LocalDate.of( 2009, 1, 1);

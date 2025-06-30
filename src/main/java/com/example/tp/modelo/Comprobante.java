@@ -6,12 +6,23 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.math.BigDecimal;
+@Data
+@AllArgsConstructor
+@Entity
+@Table(name = "comprobante")
+@Getter
+@Setter
 public class Comprobante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "comprobante_seq", sequenceName = "comprobante_seq", allocationSize = 1)
     private Long id;
 
     private BigDecimal costo;

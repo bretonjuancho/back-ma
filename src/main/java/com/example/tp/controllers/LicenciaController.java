@@ -1,5 +1,6 @@
 package com.example.tp.controllers;
 
+import com.example.tp.DTO.LicenciaConsultaDTO;
 import com.example.tp.DTO.LicenciaDTO;
 import com.example.tp.DTO.TitularDTO;
 import com.example.tp.modelo.Licencia;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.example.tp.service.TitularService_impl;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.smartcardio.ResponseAPDU;
@@ -24,14 +27,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 
 public class LicenciaController {
-
-    private final LicenciaService licenciaService_1;
     @Autowired
     private LicenciaService_impl licenciaService;
 
-    LicenciaController(LicenciaService licenciaService_1) {
-        this.licenciaService_1 = licenciaService_1;
-    }
 
     @PostMapping ("/licencia/guardar")
     @CrossOrigin(origins = "http://localhost:3000")
@@ -55,9 +53,9 @@ public class LicenciaController {
 
     @GetMapping ("/licencia/vigentes")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<?> mostrarLicenciasVigentes(@RequestBody LicenciaDTO licencia){
+    public ResponseEntity<?> mostrarLicencias(@RequestBody LicenciaConsultaDTO licenciaConsultaDTO){
         try{
-            List<Licencia> licencias = licenciaService.buscarLicenciasVigentes(licencia);
+            List<Licencia> licencias = licenciaService.buscarLicencias(licenciaConsultaDTO);
             return ResponseEntity.status(HttpStatus.OK).body(licencias);
         }catch(Exception e) {
             System.out.println(e.getMessage());
@@ -93,7 +91,7 @@ public class LicenciaController {
 
     @PostMapping("/licencia/renovar")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<?> postMethodName(@RequestBody LicenciaDTO licenciaDTO) {
+    public ResponseEntity<?> renovarLicencia(@RequestBody LicenciaDTO licenciaDTO) {
         try{
             licenciaService.renovarLicencia(licenciaDTO);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(licenciaDTO);

@@ -5,6 +5,7 @@ import com.example.tp.DTO.UsuarioDTO;
 import com.example.tp.modelo.Administrador;
 import com.example.tp.modelo.Usuario;
 import com.example.tp.service.AdministradorService;
+import com.example.tp.service.AuthService;
 import com.example.tp.service.LicenciaService_impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,16 +21,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class AdministradorController {
     @Autowired
     private AdministradorService administradorService;
+    private AuthService authService;
 
 
 
     @PostMapping("/administrador/crear")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<?> crearAdministrador(@RequestBody Administrador administrador) {
+    public ResponseEntity<?> crearAdministrador(@RequestBody final RegisterRequest request) {
         try {
-            if (!administradorService.existeAdmin(administrador)) {
-                administradorService.crearAdministrador(administrador);
-                return ResponseEntity.status(HttpStatus.CREATED).body(administrador);
+            if (!administradorService.existeAdmin(request.dni())) {
+                final TokenResponse token =authService.registerAdmin(request);
+                return ResponseEntity.ok(token);
             }
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El administrador  ya existe.");
         } catch (Exception e) {

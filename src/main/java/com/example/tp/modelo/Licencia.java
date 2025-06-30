@@ -9,6 +9,7 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Data
 @AllArgsConstructor
@@ -65,13 +66,20 @@ public class Licencia {
     private List<GestionLicencia> gestiones;
 
     public Licencia() {
-
+        Random random = new Random();
+        int randomInt = random.nextInt(10000);
+        this.numero = randomInt;
+        this.gestiones = new ArrayList<>();
     }
 
     public Licencia(String claseLicencia, String observaciones, Titular titular) {
         this.claseLicencia = claseLicencia;
         this.observaciones = observaciones;
         this.titular = titular;
+        Random random = new Random();
+        int randomInt = random.nextInt(10000);
+        this.numero = randomInt;
+        this.gestiones = new ArrayList<>();
     }
 
     public Licencia(LicenciaDTO licencia,Titular titular) {
@@ -79,7 +87,10 @@ public class Licencia {
         this.claseLicencia=licencia.getClase();
         this.observaciones=licencia.getObservaciones();
         this.titular=titular;
-        gestiones=new ArrayList<>();
+        Random random = new Random();
+        int randomInt = random.nextInt(10000);
+        this.numero = randomInt;
+        this.gestiones=new ArrayList<>();
     }
 
     public void addGestionLicencia(GestionLicencia gestionLicencia) {

@@ -3,6 +3,7 @@ package com.example.tp.repository;
 
 import com.example.tp.modelo.Licencia;
 import com.example.tp.modelo.Titular;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -37,4 +38,31 @@ public interface LicenciaRepository extends JpaRepository<Licencia, Integer> {
                                            @Param("grupoSanguineo") String grupo,
                                            @Param("factor") String factor,
                                            @Param("donante") Boolean donante);
+
+
+    @Query(value = "SELECT * " +
+            "FROM licencia  l INNER JOIN titular t ON l.titular_id = t.idTitular " +
+            "WHERE (:fechaDeEmision IS NULL OR l.fecha_emision = :fechaDeEmision) AND " +
+            "t.nombre LIKE :nombreTitular AND " +
+            "t.apellido LIKE :apellidoTitular AND " +
+            "(:numeroLicencia IS NULL OR l.numero = :numeroLicencia) AND " +
+            "(:fechaDeVencimiento IS NULL OR l.fecha_expiracion = :fechaDeVencimiento AND) AND " +
+            "t.grupo_sanguineo LIKE :grupoSanguineo AND " +
+            "t.fector_rh LIKE :factor AND " +
+            "(:donante IS NULL OR t.donante = :donante)", nativeQuery = true)
+    List<Licencia> buscarLicencias(@Param("fechaEmisionDesde") LocalDate fechaEmisionDesde,
+                                           @Param("fechaEmisionHasta") LocalDate fechaEmisionHasta,
+                                           @Param("fechaVencimientoDesde") LocalDate fechaVencimientoDesde,
+                                           @Param("fechaVencimientoHasta")  LocalDate fechaVencimientoHasta,
+                                           @Param("vigente") boolean vigente,
+                                           @Param("clase") String clase,
+                                           @Param("nombre") String nombre,
+                                           @Param("apellido") String apellido,
+                                           @Param("numeroLicencia") int numeroLicencia,
+                                           @Param("grupoSanguineo") String grupoSanguineo,
+                                           @Param("factorRH") String factorRH,
+                                           @Param("donante") Boolean donante);
+
+
 }
+

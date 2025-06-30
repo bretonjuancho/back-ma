@@ -19,7 +19,9 @@ import java.util.List;
 public class TitularService_impl {
     @Autowired
     private TitularRepository titularRepository;
+    @Autowired
     private GestionTitularRepository gestionTitularRepository;
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
     public List<Titular> ListarTitulares() {
@@ -121,7 +123,7 @@ public class TitularService_impl {
 
     public Titular modificarTitular(TitularDTO titularDTO) throws TitularNoEncontradoException{
         Titular titular = titularRepository.findByDocumento(titularDTO.getDocumento());
-        if(titular == null) throw new TitularNoEncontradoException("El titular con documento: " + titularDTO.getDocumento() + " no fue encontrado.")
+        if(titular == null) throw new TitularNoEncontradoException("El titular con documento: " + titularDTO.getDocumento() + " no fue encontrado.");
         titular.setNombre(titularDTO.getNombre());
         titular.setApellido(titularDTO.getApellido());
         titular.setDireccion(titularDTO.getDireccion());
@@ -133,8 +135,6 @@ public class TitularService_impl {
         titular.addGestion(gestionTitular(titular,logUser,"Modificacion"));
 
         return titular;
-
-
     }
 
     public List<Titular> buscarTitulares (String documento, String nombre, String apellido)throws TitularNoEncontradoException {

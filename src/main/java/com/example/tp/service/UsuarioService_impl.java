@@ -4,6 +4,8 @@ import com.example.tp.DTO.TitularDTO;
 import com.example.tp.DTO.UsuarioDTO;
 import com.example.tp.excepciones.bddException.ErrorAlAccederABDDException;
 import com.example.tp.excepciones.usuario.*;
+import com.example.tp.modelo.Administrador;
+import com.example.tp.modelo.GestionUsuario;
 import com.example.tp.modelo.Titular;
 import com.example.tp.modelo.Usuario;
 import com.example.tp.repository.UsuarioRepository;
@@ -15,11 +17,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioService_impl implements UsuarioService{
 
     @Autowired
     UsuarioRepository usuarioRepository;
+    @Autowired
+    AdministradorService administradorService;
 
     public UsuarioService_impl(){}
 
@@ -31,9 +37,8 @@ public class UsuarioService_impl implements UsuarioService{
         return validator.isValid(email);
     }
     private boolean validarPassword(String password){
-        if(password.length() < 8) return false;
-        if(!password.matches("[^(?=.*[!@#$%^&*()_+\\\\-\\\\=\\\\[\\\\]{};':\\\"\\\\\\\\|,.<>/?])(?!.*\\\\s).+$]")) return false;
-        if(!password.matches("[0-9]+")) return false;
+        String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}:;\'\"|<>,.?/~`-])(?=\\S+$).{8,}$";
+        if(!password.matches(regex)){return false;}
         return true;
     }
     @Override
@@ -62,8 +67,8 @@ public class UsuarioService_impl implements UsuarioService{
          return usuarioRepository.findByDni(Dni);
     }
 
-    public Usuario obtenerUsuario(UsuarioDTO usuarioDTO) {
-        return usuarioRepository.findByDni(usuarioDTO.getDni());
+    public List<Usuario> obtenerUsuario(UsuarioDTO usuarioDTO) {
+        return usuarioRepository.obtenerUsuarios(usuarioDTO.getDni(),usuarioDTO.getNombre(),usuarioDTO.getApellido());
     }
 
     @Override
@@ -76,7 +81,8 @@ public class UsuarioService_impl implements UsuarioService{
         Usuario usuario = new Usuario(dni,nombre, apellido, email, password);
         usuarioRepository.save(usuario);
 
-        //registrar quien lo hizo
+        //gestion del admin
+
         return usuario;
     }
 
@@ -89,9 +95,11 @@ public class UsuarioService_impl implements UsuarioService{
         usuarioRepository.save(usuario);
 
         //gestion del admin
+        Administrador logUser = administradorService.getLogingUser();
+        usuario.addGestionUsuario(new GestionUsuario(usuario,logUser));
+
+
         return usuario;
-
-
     }
 
 
