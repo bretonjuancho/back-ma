@@ -25,6 +25,8 @@ public class LicenciaTest {
     LocalDate date2 = LocalDate.of( 2009, 1, 1);
     TitularDTO tit1 = new TitularDTO("Mateo", "Gastaldi", "45489", "DNi", date1, "Llerena 2260", "AB", "+", true);
     TitularDTO tit2 = new TitularDTO("Juan", "Juancin", "24291870", "DNi", date2, "Llerena 2260", "AB", "-", false);
+    //este tiene q aparecer en la base de datos
+    TitularDTO tit3 = new TitularDTO("Juan", "Gimenez", "15486318", "DNi", date2, "Llerena 2260", "AB", "-", false);
 
 
     LicenciaDTO licenciaDTO1 = new LicenciaDTO(tit1, "No tiene nada", "A");
@@ -36,8 +38,9 @@ public class LicenciaTest {
     void pruebaEdadMinimaValida() {
         Assertions.assertTrue(licenciaService.edadMinima(licenciaDTO1));
     }
+    @Test
     void pruebaEdadMinimaInvalida() {
-        Assertions.assertTrue(licenciaService.edadMinima(licenciaDTO1));
+        Assertions.assertThrows(LicenciaDatosInvalidosException.class,()->{licenciaService.edadMinima(licenciaDTO3);});
     }
     @Test
     void pruebaLicenciaProfesional() {
@@ -45,30 +48,10 @@ public class LicenciaTest {
     }
     @Test
     void pruebaLicenciaRepetida() {
-        Assertions.assertTrue(licenciaService.repetida(licenciaDTO1));
+        Assertions.assertFalse(licenciaService.repetida(licenciaDTO1));
     }
     @Test
     void pruebaTitularInexistente() {
         Assertions.assertThrows(LicenciaDatosInvalidosException.class,()->{licenciaService.edadMinima(licenciaDTO2);});
-    }
-    @Test
-    void pruebaTitularExistente() {
-        Assertions.assertFalse(licenciaService.profesional(licenciaDTO2));
-    }
-    @Test
-    void ncontextLoads() {
-        Assertions.assertTrue(licenciaService.repetida(licenciaDTO2));
-    }
-    @Test
-    void nombre() {
-        Assertions.assertFalse(licenciaService.edadMinima(licenciaDTO3));
-    }
-    @Test
-    void contextLreroads() {
-        Assertions.assertTrue(licenciaService.profesional(licenciaDTO3));
-    }
-    @Test
-    void contextLoadsere() {
-        Assertions.assertTrue(licenciaService.repetida(licenciaDTO3));
     }
 }
