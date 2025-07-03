@@ -3,7 +3,6 @@ package com.example.tp.DTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class TitularDTO {
     private String nombre;

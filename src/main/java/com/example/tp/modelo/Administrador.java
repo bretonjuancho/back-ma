@@ -1,13 +1,14 @@
 package com.example.tp.modelo;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Builder
 @AllArgsConstructor
 @Entity
 @Table(name = "administrador")
@@ -15,7 +16,7 @@ public class Administrador {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "administrador_seq")
     @SequenceGenerator(name = "administrador_seq", sequenceName = "administrador_seq", allocationSize = 1)
-    private Long id;
+    private Integer id;
 
     @Column(name = "nombre")
     private String nombre;
@@ -32,12 +33,22 @@ public class Administrador {
     @Column(name = "password")
     private String password;
 
+    @OneToMany(mappedBy = "admin", fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "admin-tokens")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Token> tokens;
+
+    public Administrador(String nombre, String apellido, String dni, String email, String encode) {
+        this.nombre=nombre;
+        this.apellido=apellido;
+        this.dni=dni;
+        this.email=email;
+        this.password=encode;
+    }
+
+
     public Administrador() {
+
     }
-
-    public Administrador(String password) {
-        this.password = password;
-    }
-
-
 }

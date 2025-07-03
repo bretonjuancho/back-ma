@@ -3,12 +3,14 @@ package com.example.tp.modelo;
 
 import com.example.tp.DTO.LicenciaDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Data
 @AllArgsConstructor
@@ -41,7 +43,7 @@ public class Licencia {
     @Setter
     private String observaciones;
 
-    @Column(name = "numero")
+    @Column(name = "numero",unique = true)
     @Getter
     @Setter
     private int numero;
@@ -56,22 +58,33 @@ public class Licencia {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "titular_id", nullable = false)
     @JsonBackReference(value = "titular-licencias")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Titular titular;
 
     @Setter
     @Getter
     @OneToMany(mappedBy = "licencia", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference(value = "licencia-gestiones")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<GestionLicencia> gestiones;
 
     public Licencia() {
-
+        Random random = new Random();
+        int randomInt = random.nextInt(10000);
+        this.numero = randomInt;
+        this.gestiones = new ArrayList<>();
     }
 
     public Licencia(String claseLicencia, String observaciones, Titular titular) {
         this.claseLicencia = claseLicencia;
         this.observaciones = observaciones;
         this.titular = titular;
+        Random random = new Random();
+        int randomInt = random.nextInt(10000);
+        this.numero = randomInt;
+        this.gestiones = new ArrayList<>();
     }
 
     public Licencia(LicenciaDTO licencia,Titular titular) {
@@ -79,7 +92,10 @@ public class Licencia {
         this.claseLicencia=licencia.getClase();
         this.observaciones=licencia.getObservaciones();
         this.titular=titular;
-        gestiones=new ArrayList<>();
+        Random random = new Random();
+        int randomInt = random.nextInt(10000);
+        this.numero = randomInt;
+        this.gestiones=new ArrayList<>();
     }
 
     public void addGestionLicencia(GestionLicencia gestionLicencia) {

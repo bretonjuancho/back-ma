@@ -6,19 +6,28 @@ import com.example.tp.modelo.Administrador;
 import com.example.tp.modelo.Usuario;
 import com.example.tp.repository.AdministradorRepository;
 import com.example.tp.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AdministradorService {
+    @Autowired
     private AdministradorRepository bdd;
 
-    public Boolean existeAdmin(Administrador admin) {
-        Administrador previo = bdd.findByDni(admin.getDni());
+    public Boolean existeAdmin(String dni) {
+        Administrador previo = bdd.findByDni(dni);
         if(previo != null) {return true;}
         return false;
     }
 
-    public Administrador crearAdministrador(Administrador admin) {
-        return bdd.save(admin);
+    public Administrador getLogingUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String dni = ((User) authentication.getPrincipal()).getUsername();
+        System.out.println("el admin fue encontrado y es " + dni);
+        return bdd.findByDni(dni);
     }
+
 }

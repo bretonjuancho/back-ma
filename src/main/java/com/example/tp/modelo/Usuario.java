@@ -2,6 +2,7 @@ package com.example.tp.modelo;
 
 
 import com.example.tp.DTO.UsuarioDTO;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,15 +39,25 @@ public class Usuario {
     private String password;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JsonManagedReference(value="usuario-gestionusuario")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<GestionUsuario> gestionesCreador;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "usuario-gestioneslicencias")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<GestionLicencia> licenciasEmitidas;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "usuario-gestionestitular")
     private List<GestionTitular> titularesCreados;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "usuario-tokens")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Token> tokens;
 
 
@@ -74,6 +85,8 @@ public class Usuario {
         this.licenciasEmitidas = new ArrayList<>();
         this.titularesCreados = new ArrayList<>();
     }
+
+    public void addGestionUsuario(GestionUsuario gestionUsuario){this.gestionesCreador.add(gestionUsuario);}
 
     public Object orElseThrow(Object o) {
         return null;

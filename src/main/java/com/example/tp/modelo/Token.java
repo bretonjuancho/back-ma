@@ -1,5 +1,6 @@
 package com.example.tp.modelo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Entity (name = "tokens")
 
-public final class Token {
+public  class Token {
 
 
     public enum TokenType{
@@ -35,7 +36,17 @@ public final class Token {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonBackReference(value = "usuario-tokens")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Usuario user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
+    @JsonBackReference(value = "admin-tokens")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Administrador admin;
 
 
 }

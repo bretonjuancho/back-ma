@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="838d4fd1-acf5-47e0-9bcc-47f79cb54480" name="Changes" comment="Cambios en la parte de usuario, tambien se agregaron excepciones y cambio de dependencias agregando una dependencia al xml">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tp/controllers/TitularController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tp/controllers/TitularController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tp/repository/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tp/repository/UsuarioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tp/service/UsuarioService_impl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tp/service/UsuarioService_impl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/tp/LicenciaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/tp/LicenciaTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/tp/UsuarioTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/tp/UsuarioTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/tp/service/UsuarioService_impl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/tp/service/UsuarioService_impl.class" afterDir="false" />
+    </list>
+    <list id="c5b659ef-de1b-4f31-9360-7303170522d8" name="Changes by facun" comment="" />
+    <list id="6153a014-0e31-4d1b-b4fa-1093f2967fd4" name="Changes by Juan" comment="" />
+    <list id="fcafbdf3-6444-41cf-be1e-d570c1ae943d" name="Changes by mateo-gastaldi" comment="" />
+    <list id="0ff6f557-aa2f-4f88-96a4-12459fe3c8fb" name="Changes by PC" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tp/service/LicenciaService_impl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tp/service/LicenciaService_impl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/tp/LicenciaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/tp/LicenciaTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Exception" />
+        <option value="Record" />
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Spring Repository" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="merge" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;fballhorst&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/bretonjuancho/back-ma.git&quot;,
+    &quot;accountId&quot;: &quot;39196873-5e03-4536-8692-5d28e463da0e&quot;
+  }
+}</component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/test/java/com/example/tp/LicenciaTest.java">
+      <ranges>
+        <range start1="2" end1="2" start2="2" end2="4" changelist="838d4fd1-acf5-47e0-9bcc-47f79cb54480" />
+        <range start1="13" end1="13" start2="15" end2="16" changelist="838d4fd1-acf5-47e0-9bcc-47f79cb54480" />
+        <range start1="14" end1="15" start2="17" end2="18" changelist="838d4fd1-acf5-47e0-9bcc-47f79cb54480" />
+        <range start1="17" end1="17" start2="20" end2="22" changelist="838d4fd1-acf5-47e0-9bcc-47f79cb54480" />
+        <range start1="18" end1="21" start2="23" end2="24" changelist="838d4fd1-acf5-47e0-9bcc-47f79cb54480" />
+        <range start1="22" end1="23" start2="25" end2="26" changelist="838d4fd1-acf5-47e0-9bcc-47f79cb54480" />
+        <range start1="24" end1="24" start2="27" end2="28" changelist="838d4fd1-acf5-47e0-9bcc-47f79cb54480" />
+        <range start1="31" end1="32" start2="35" end2="36" changelist="838d4fd1-acf5-47e0-9bcc-47f79cb54480" />
+        <range start1="33" end1="43" start2="37" end2="37" changelist="0ff6f557-aa2f-4f88-96a4-12459fe3c8fb" />
+        <range start1="44" end1="44" start2="38" end2="73" changelist="0ff6f557-aa2f-4f88-96a4-12459fe3c8fb" />
+      </ranges>
+    </file>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2yJfkL0eogswbGCvkZVRUb9cWyM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.LicenciaTest.contextLoads.executor": "Run",
+    "JUnit.LicenciaTest.executor": "Run",
+    "JUnit.LicenciaTest.pruebaEdadMinima.executor": "Run",
+    "JUnit.UsuarioTest.executor": "Run",
+    "JUnit.UsuarioTest.prueba.executor": "Run",
+    "JUnit.UsuarioTest.pruebaUsuarioNoExistente.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.TpApplication.executor": "Run",
+    "git-widget-placeholder": "merge",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/mateo-gastaldi/MATEO/FACU/4TO/Metodos Agiles/back-ma",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.tp.repository" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.LicenciaTest.pruebaEdadMinima">
+    <configuration name="LicenciaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.tp" />
+      <option name="MAIN_CLASS_NAME" value="com.example.tp.LicenciaTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LicenciaTest.pruebaEdadMinima" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.tp" />
+      <option name="MAIN_CLASS_NAME" value="com.example.tp.LicenciaTest" />
+      <option name="METHOD_NAME" value="pruebaEdadMinima" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UsuarioTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.tp" />
+      <option name="MAIN_CLASS_NAME" value="com.example.tp.UsuarioTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UsuarioTest.prueba" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.tp" />
+      <option name="MAIN_CLASS_NAME" value="com.example.tp.UsuarioTest" />
+      <option name="METHOD_NAME" value="prueba" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UsuarioTest.pruebaUsuarioNoExistente" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.tp" />
+      <option name="MAIN_CLASS_NAME" value="com.example.tp.UsuarioTest" />
+      <option name="METHOD_NAME" value="pruebaUsuarioNoExistente" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TpApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="TP" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.tp.TpApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.LicenciaTest.pruebaEdadMinima" />
+        <item itemvalue="JUnit.UsuarioTest" />
+        <item itemvalue="JUnit.UsuarioTest.pruebaUsuarioNoExistente" />
+        <item itemvalue="JUnit.LicenciaTest" />
+        <item itemvalue="JUnit.UsuarioTest.prueba" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Logical" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="838d4fd1-acf5-47e0-9bcc-47f79cb54480" name="Changes" comment="" />
+      <created>1749557739596</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1749557739596</updated>
+      <workItem from="1749557741081" duration="4987000" />
+      <workItem from="1749643839283" duration="555000" />
+      <workItem from="1749644544300" duration="4591000" />
+      <workItem from="1749660557554" duration="1843000" />
+      <workItem from="1749664090052" duration="1923000" />
+      <workItem from="1749767495548" duration="930000" />
+      <workItem from="1749836986357" duration="2223000" />
+      <workItem from="1750083659253" duration="2061000" />
+      <workItem from="1750101734913" duration="23252000" />
+      <workItem from="1750133483524" duration="7685000" />
+      <workItem from="1750176462797" duration="2779000" />
+      <workItem from="1750181516123" duration="1073000" />
+      <workItem from="1750936775788" duration="553000" />
+      <workItem from="1750937395689" duration="104000" />
+      <workItem from="1750939325032" duration="117000" />
+      <workItem from="1750939450928" duration="159000" />
+      <workItem from="1751236687456" duration="16049000" />
+      <workItem from="1751567915093" duration="295000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cambios en la parte de usuario, tambien se agregaron excepciones y cambio de dependencias agregando una dependencia al xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios en la parte de usuario, tambien se agregaron excepciones y cambio de dependencias agregando una dependencia al xml" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/example/tp/UsuarioTest.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
