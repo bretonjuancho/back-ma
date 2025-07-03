@@ -53,10 +53,14 @@ public class Titular {
 
     @OneToMany(mappedBy = "titular", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     @JsonManagedReference(value = "titular-licencias")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Licencia> licencias;
 
     @OneToMany(mappedBy = "titular", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference(value = "titular-gestiones")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<GestionTitular> gestiones;
 
     public void addLicencia(Licencia lic){

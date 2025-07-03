@@ -2,12 +2,10 @@ package com.example.tp.modelo;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
@@ -22,14 +20,18 @@ public class GestionLicencia {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "licencia_id", nullable = false)
-    @JsonManagedReference
+    @JsonBackReference(value = "licencia-gestiones")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @Setter
     @Getter
     private Licencia licencia;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
-    @JsonManagedReference
+    @JsonBackReference(value = "usuario-gestioneslicencias")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @Setter
     @Getter
     private Usuario usuario;

@@ -19,7 +19,7 @@ public class AuthController {
     @Autowired
     private AdministradorService administradorService;
 
-    /*@PostMapping("/register")
+   /* @PostMapping("/register")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<TokenResponse> register(@RequestBody final RegisterRequest request){
         final TokenResponse token = service.register(request);

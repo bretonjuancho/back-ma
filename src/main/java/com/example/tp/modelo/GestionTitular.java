@@ -3,10 +3,7 @@ package com.example.tp.modelo;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -24,12 +21,16 @@ public class GestionTitular {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "titularId", nullable = false)
-    @JsonManagedReference
+    @JsonBackReference(value = "titular-gestiones")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Titular titular;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
-    @JsonManagedReference
+    @JsonBackReference(value = "usuario-gestionestitular")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Usuario usuario;
 
     @Column(name = "motivo")

@@ -1,6 +1,7 @@
 package com.example.tp.modelo;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +34,9 @@ public class Administrador {
     private String password;
 
     @OneToMany(mappedBy = "admin", fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "admin-tokens")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Token> tokens;
 
     public Administrador(String nombre, String apellido, String dni, String email, String encode) {
@@ -44,5 +48,7 @@ public class Administrador {
     }
 
 
+    public Administrador() {
 
+    }
 }

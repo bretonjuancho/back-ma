@@ -31,7 +31,7 @@ public class UsuarioController {
 
     }*/
 
-    @PostMapping("/auth/register")
+    @PostMapping("/usuario/register")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> register(@RequestBody final RegisterRequest request){
         try {
@@ -74,7 +74,6 @@ public class UsuarioController {
         }
     }
 
-    //no esta echa la logica de modificar usuario ni buscar usuario
 
 
 

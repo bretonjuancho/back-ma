@@ -59,8 +59,8 @@ public class AuthService {
                 request.email(),
                 passwordEncoder.encode(request.contrasenia()));
         Administrador savedAdmin = bddAdmin.save(admin);
-        String jwtToken = jwtService.generateToken(admin);
-        String refreshToken = jwtService.generateRefreshToken(admin);
+        String jwtToken = jwtService.generateTokenAd(admin);
+        String refreshToken = jwtService.generateRefreshTokenAd(admin);
         saveAdminToken(savedAdmin,jwtToken);
         return new TokenResponse(jwtToken,refreshToken,"admin");
     }
@@ -88,18 +88,25 @@ public class AuthService {
     }
 
     public TokenResponse login(LoginRequest request){
+        System.out.println(request.dni());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.dni(),
                         request.password()
                 )
         );
+        System.out.println(request.dni());
+        System.out.println("asdasd");
         Usuario user = bddUsuario.findByDni(request.dni());
+        if(user != null)System.out.println(user.getDni());
+        System.out.println(user);
         if(user==null){
+
+            System.out.println("el usuario no ha sido encontrado");
             Administrador administrador = bddAdmin.findByDni(request.dni());
             if(administrador==null) {throw new UsernameNotFoundException("Usuario no encontrado");}
-            String jwtToken = jwtService.generateToken(administrador);
-            String refreshToken = jwtService.generateRefreshToken(administrador);
+            String jwtToken = jwtService.generateTokenAd(administrador);
+            String refreshToken = jwtService.generateRefreshTokenAd(administrador);
             saveAdminToken(administrador,jwtToken);
             return new TokenResponse(jwtToken,refreshToken,"admin");
         }

@@ -1,15 +1,13 @@
 package com.example.tp.modelo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 @Data
@@ -31,6 +29,9 @@ public class Comprobante {
 
     @ManyToOne
     @JoinColumn(name = "creador_id")
+    @JsonBackReference(value = "admin-comprobante")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Administrador creador;
 
     // Constructores

@@ -1,6 +1,8 @@
 package com.example.tp.config;
 
+import com.example.tp.modelo.Administrador;
 import com.example.tp.modelo.Usuario;
+import com.example.tp.repository.AdministradorRepository;
 import com.example.tp.repository.TokenRepository;
 import com.example.tp.repository.UsuarioRepository;
 import com.example.tp.service.JwtService;
@@ -31,6 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
     private final TokenRepository tokenRepository;
     private final UsuarioRepository userRepository;
+    private final AdministradorRepository adminRepository;
 
     @Override
     protected void doFilterInternal(
@@ -83,6 +86,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             new WebAuthenticationDetailsSource().buildDetails(request)
                     );
                     SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
+            }
+            else{
+                final Optional<Administrador> user2 = Optional.ofNullable(adminRepository.findByDni(userDni));
+
+                if (user2.isPresent()) {
+                    final boolean isTokenValid = jwtService.isTokenValid(jwt, user2.get());
+
+                    if (isTokenValid) {
+                        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                                userDetails,
+                                null,
+                                userDetails.getAuthorities()
+                        );
+                        authToken.setDetails(
+                                new WebAuthenticationDetailsSource().buildDetails(request)
+                        );
+                        SecurityContextHolder.getContext().setAuthentication(authToken);
+                    }
                 }
             }
         }

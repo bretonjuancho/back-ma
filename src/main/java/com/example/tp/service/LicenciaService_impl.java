@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 @Service
 public class LicenciaService_impl implements LicenciaService{
@@ -210,6 +211,9 @@ public class LicenciaService_impl implements LicenciaService{
     }
 
     public List<Licencia> buscarLicencias(LicenciaConsultaDTO licenciaConsultaDTO){
+        System.out.println(licenciaConsultaDTO.getNombre());
+        System.out.println(licenciaConsultaDTO.getApellido());
+        System.out.println(licenciaConsultaDTO.getFactorRH());
         return bdd_licencia.buscarLicencias(
                 licenciaConsultaDTO.getFechaEmisionDesde(),
                 licenciaConsultaDTO.getFechaVencimientoHasta(),
@@ -264,5 +268,16 @@ public class LicenciaService_impl implements LicenciaService{
         return licencia;
 
 
+    }
+
+    public Licencia copiaLicencia(String documento,String clase){
+        Titular titular = bdd_titular.findByDocumento(documento);
+        LocalDate fechaActual = LocalDate.now();
+        Licencia licencia = bdd_licencia.findLicenciaByTitularAndClaseActiva(titular.getId(),clase,fechaActual);
+
+        Usuario logUser = usuarioService.getLogingUser();
+        licencia.addGestionLicencia(gestionLicencia(licencia,logUser,"Copia"));
+
+        return licencia;
     }
 }

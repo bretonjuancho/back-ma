@@ -3,6 +3,7 @@ package com.example.tp.modelo;
 
 import com.example.tp.DTO.LicenciaDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -57,12 +58,16 @@ public class Licencia {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "titular_id", nullable = false)
     @JsonBackReference(value = "titular-licencias")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Titular titular;
 
     @Setter
     @Getter
     @OneToMany(mappedBy = "licencia", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference(value = "licencia-gestiones")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<GestionLicencia> gestiones;
 
     public Licencia() {

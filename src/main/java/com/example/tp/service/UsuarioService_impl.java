@@ -82,6 +82,8 @@ public class UsuarioService_impl implements UsuarioService{
         usuarioRepository.save(usuario);
 
         //gestion del admin
+        Administrador logUser = administradorService.getLogingUser();
+        usuario.addGestionUsuario(new GestionUsuario(usuario,logUser, "Creacion"));
 
         return usuario;
     }
@@ -96,7 +98,7 @@ public class UsuarioService_impl implements UsuarioService{
 
         //gestion del admin
         Administrador logUser = administradorService.getLogingUser();
-        usuario.addGestionUsuario(new GestionUsuario(usuario,logUser));
+        usuario.addGestionUsuario(new GestionUsuario(usuario,logUser, "Modificacion"));
 
 
         return usuario;

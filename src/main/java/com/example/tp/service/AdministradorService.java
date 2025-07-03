@@ -26,6 +26,7 @@ public class AdministradorService {
     public Administrador getLogingUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String dni = ((User) authentication.getPrincipal()).getUsername();
+        System.out.println("el admin fue encontrado y es " + dni);
         return bdd.findByDni(dni);
     }
 

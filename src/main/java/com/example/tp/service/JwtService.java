@@ -26,16 +26,16 @@ public class JwtService {
         return buildToken(usuario,refreshExpiration);
     }
 
-    public String generateToken(final Administrador admin) {
-        return buildToken(admin,refreshExpiration);
+    public String generateTokenAd(final Administrador admin) {
+        return buildTokenAd(admin,refreshExpiration);
     }
 
     public String generateRefreshToken(final Usuario usuario) {
         return buildToken(usuario, refreshExpiration);
     }
 
-    public String generateRefreshToken(final Administrador admin) {
-        return buildToken(admin, refreshExpiration);
+    public String generateRefreshTokenAd(final Administrador admin) {
+        return buildTokenAd(admin, refreshExpiration);
     }
 
     public String buildToken(final Usuario usuario, final long expiration) {
@@ -53,7 +53,7 @@ public class JwtService {
 
     }
 
-    public String buildToken(final Administrador admin, final long expiration) {
+    public String buildTokenAd(final Administrador admin, final long expiration) {
         Integer n=admin.getId();
 
         return Jwts.builder()
@@ -83,6 +83,11 @@ public class JwtService {
     }
 
     public boolean isTokenValid(final String token, final Usuario usuario) {
+        final String username = extractUsername(token);
+        return(username.equals(usuario.getDni()) && !isTokenExpired(token));
+    }
+
+    public boolean isTokenValid(final String token, final Administrador usuario) {
         final String username = extractUsername(token);
         return(username.equals(usuario.getDni()) && !isTokenExpired(token));
     }
