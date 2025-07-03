@@ -42,6 +42,7 @@ public class LicenciaService_impl implements LicenciaService{
 
     public boolean repetida(LicenciaDTO licencia) throws LicenciaDatosInvalidosException{
         Titular titular = buscarTitularByDocumento(licencia.getTitular().getDocumento());
+        if(titular==null){throw new LicenciaDatosInvalidosException("No existe el titular");}
         List<Licencia> lic = buscarLicenciaByClaseYTitular(licencia.getClase(), titular);
         if(lic.isEmpty())  return false;
         throw new LicenciaDatosInvalidosException("La licencia se encuentra repetida en el sistema.");
@@ -68,6 +69,7 @@ public class LicenciaService_impl implements LicenciaService{
                 licencia.getClase().equals("F") ||
                 licencia.getClase().equals("G")) {return true;}
         Titular titular = buscarTitularByDocumento(licencia.getTitular().getDocumento());
+        if(titular==null){throw new LicenciaDatosInvalidosException("No existe el titular");}
         Licencia licenciaB= licenciaMasVieja(buscarLicenciaByClaseYTitular(licencia.getClase(),titular));
         if(licenciaB==null){throw new LicenciaDatosInvalidosException("No cumple los requerimientos para obtener licencia profesional.") ;}
         LocalDate emision=licenciaB.getFechaEmision();

@@ -41,8 +41,14 @@ public class UsuarioService_impl implements UsuarioService{
         if(!password.matches(regex)){return false;}
         return true;
     }
+    private boolean validarDocumento(String documento){
+        boolean repetido = (usuarioRepository.findByDni(documento)) != null;
+        if (repetido) return false;
+        return documento.matches("[0-9]+") && documento.length() <= 8;
+    }
     @Override
     public boolean datosUsuarioValido(UsuarioDTO usuarioDTO) throws UsuarioDatosInvalidosException{
+        if(!validarDocumento(usuarioDTO.getDni())) throw new UsuarioDatosInvalidosException("Documento incorrecto");
         if (!validarTexto(usuarioDTO.getNombre())) throw new UsuarioDatosInvalidosException("Nombre del usuario invalido: "+usuarioDTO.getNombre());
         if(!validarTexto(usuarioDTO.getApellido())) throw new UsuarioDatosInvalidosException("Apellido del usuario invalido: "+ usuarioDTO.getApellido());
         if(!validarEmail(usuarioDTO.getEmail())) throw new UsuarioDatosInvalidosException("Email del usuario incorrecto: "+ usuarioDTO.getEmail());

@@ -20,4 +20,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                   @Param("nombre") String nombre,
                                   @Param("apellido") String apellido);
     Usuario findByEmail(String email);
+
+
 }
