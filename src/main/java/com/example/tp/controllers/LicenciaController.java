@@ -5,6 +5,7 @@ import com.example.tp.DTO.LicenciaDTO;
 import com.example.tp.DTO.TitularDTO;
 import com.example.tp.modelo.Licencia;
 import com.example.tp.modelo.Titular;
+import com.example.tp.service.ComprobanteService;
 import com.example.tp.service.LicenciaService;
 import com.example.tp.service.LicenciaService_impl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class LicenciaController {
     @Autowired
     private LicenciaService_impl licenciaService;
+    @Autowired
+    private ComprobanteService comprobanteService;
 
 
     @PostMapping ("/licencia/guardar")
@@ -41,7 +44,9 @@ public class LicenciaController {
             if(licenciaService.edadMinima(licencia)) {
                 if(!licenciaService.repetida(licencia)){
                     if(licenciaService.profesional(licencia)) {
-                        licenciaService.guardarLicencia(licencia);
+                        Licencia l = licenciaService.guardarLicencia(licencia);
+                        double costo = licenciaService.calcularCosto(licencia);
+                        comprobanteService.guardar(l,costo, "Creacion de Licencia");
                         return ResponseEntity.status(HttpStatus.CREATED).body(licencia);
                     } 
                 } 
@@ -107,6 +112,8 @@ public class LicenciaController {
                 if(licenciaService.edadMinima(licenciaDTO)){
                     if(licenciaService.profesional(licenciaDTO)){
                         Licencia licencia = licenciaService.modificarLicencia(licenciaDTO);
+                        double costo = licenciaService.calcularCosto(licenciaDTO);
+                        comprobanteService.guardar(licencia, costo,"Modificacion");
                         return ResponseEntity.status(HttpStatus.ACCEPTED).body(licencia);
                     }
                 }
@@ -126,7 +133,8 @@ public class LicenciaController {
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> renovarLicencia(@RequestBody LicenciaDTO licenciaDTO) {
         try{
-            licenciaService.renovarLicencia(licenciaDTO);
+            Licencia lic = licenciaService.renovarLicencia(licenciaDTO);
+            comprobanteService.guardar(lic, 50,"Renovacion");
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(licenciaDTO);
         }
         catch(Exception e){
@@ -139,6 +147,7 @@ public class LicenciaController {
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> copiaLicencia(@RequestParam(required = false) String documento,String claseLicencia){
         Licencia licencia = licenciaService.copiaLicencia(documento,claseLicencia);
+        comprobanteService.guardar(licencia, 50,"Copia");
         return ResponseEntity.ok(licencia);
     }
     

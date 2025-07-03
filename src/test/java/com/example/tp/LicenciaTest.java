@@ -24,8 +24,8 @@ public class LicenciaTest {
     LocalDate date1 = LocalDate.of(2000, 10, 10);
     LocalDate date2 = LocalDate.of( 2009, 1, 1);
     TitularDTO tit1 = new TitularDTO("Mateo", "Gastaldi", "45489", "DNI", date1, "Llerena 2260", "AB", "+", true);
+    //este titular no existe en la base de datos
     TitularDTO tit2 = new TitularDTO("Juan", "Juancin", "24291870", "DNI", date2, "Llerena 2260", "AB", "-", false);
-    //este tiene q aparecer en la base de datos
     TitularDTO tit3 = new TitularDTO("Juan", "Gimenez", "15486318", "DNi", date2, "Llerena 2260", "AB", "-", false);
 
 
@@ -48,7 +48,8 @@ public class LicenciaTest {
     }
     @Test
     void pruebaLicenciaRepetidaInvalida() {
-        Assertions.assertThrows(LicenciaDatosInvalidosException.class,()->{licenciaService.repetida(licenciaDTO1);}); //EN la base de datos este usuario ya tiene una licencia de esta clase
+        Assertions.assertThrows(LicenciaDatosInvalidosException.class,()->{licenciaService.repetida(licenciaDTO1);});
+        //EN la base de datos este usuario ya tiene una licencia de esta clase
     }
     @Test
     void pruebaLicenciaRepetidaValida() {

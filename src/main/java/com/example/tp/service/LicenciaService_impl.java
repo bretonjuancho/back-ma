@@ -103,16 +103,17 @@ public class LicenciaService_impl implements LicenciaService{
         return gestionLicencia;
     }
 
-    public void guardarLicencia(LicenciaDTO licencia){
+    public Licencia guardarLicencia(LicenciaDTO licencia){
         Titular duenio=bdd_titular.findByDocumento(licencia.getTitular().getDocumento());
         Licencia save= new Licencia(licencia,duenio);
         save.setActiva(true);
         LocalDate fechaExpiracion=calcularValidez(save,duenio);
         save.setFechaExpiracion(fechaExpiracion);
-        bdd_licencia.save(save);
+        Licencia l = bdd_licencia.save(save);
         //gestion licencia:
         Usuario logUser = usuarioService.getLogingUser();
         save.addGestionLicencia(gestionLicencia(save,logUser,"Creacion"));
+        return l;
 
 
     }
@@ -213,9 +214,6 @@ public class LicenciaService_impl implements LicenciaService{
     }
 
     public List<Licencia> buscarLicencias(LicenciaConsultaDTO licenciaConsultaDTO){
-        System.out.println(licenciaConsultaDTO.getNombre());
-        System.out.println(licenciaConsultaDTO.getApellido());
-        System.out.println(licenciaConsultaDTO.getFactorRH());
         return bdd_licencia.buscarLicencias(
                 licenciaConsultaDTO.getFechaEmisionDesde(),
                 licenciaConsultaDTO.getFechaVencimientoHasta(),

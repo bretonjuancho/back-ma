@@ -9,7 +9,8 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @Entity
@@ -23,22 +24,37 @@ public class Comprobante {
     @SequenceGenerator(name = "comprobante_seq", sequenceName = "comprobante_seq", allocationSize = 1)
     private Long id;
 
-    private BigDecimal costo;
+    @Column(name = "costo")
+    private double costo;
 
+    @Column(name = "seccion")
+    //este valor se usa para representar un numero ficticio que es constante e identifica al registro automotor
     private Integer numeroSeccion;
+
+    @Column(name = "concepto")
+    private String concepto;
+
+    @Column(name = "fecha_emision")
+    private LocalDate fecha;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "licencia_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Licencia licenciaAsociada;
 
     @ManyToOne
     @JoinColumn(name = "creador_id")
     @JsonBackReference(value = "admin-comprobante")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Administrador creador;
+    private Usuario creador;
 
     // Constructores
     public Comprobante() {
     }
 
-    public Comprobante(BigDecimal costo, Integer numeroSeccion, Administrador creador) {
+    public Comprobante(double costo, Integer numeroSeccion, Usuario creador) {
         this.costo = costo;
         this.numeroSeccion = numeroSeccion;
         this.creador = creador;
@@ -49,11 +65,11 @@ public class Comprobante {
         return id;
     }
 
-    public BigDecimal getCosto() {
+    public double getCosto() {
         return costo;
     }
 
-    public void setCosto(BigDecimal costo) {
+    public void setCosto(double costo) {
         this.costo = costo;
     }
 
@@ -65,11 +81,11 @@ public class Comprobante {
         this.numeroSeccion = numeroSeccion;
     }
 
-    public Administrador getCreador() {
+    public Usuario getCreador() {
         return creador;
     }
 
-    public void setCreador(Administrador creador) {
+    public void setCreador(Usuario creador) {
         this.creador = creador;
     }
 }
